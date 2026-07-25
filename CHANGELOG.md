@@ -1,6 +1,15 @@
 # @codegiveness/kernel-prompt
 
-## 0.1.0
+## [0.1.1] - 2026-07-26
+
+### Renamed & Released
+
+- Rename `kernel-skill` → `kernel-prompt` across all naming surfaces (skill name, npm package, plugin name, directory, bin script, README, CHANGELOG, CI guard).
+- Add CI naming-consistency guard — 13 assertions verifying all naming surfaces agree, preventing partial renames from shipping.
+- Close three README content gaps: before/after example teaser, six-cut KERNEL acronym expansion inline, five output substances named (context, task, constraints, format, verify).
+- Repository renamed on GitHub: `codegiveness/kernel-skill` → `codegiveness/kernel-prompt` (old URL auto-redirects).
+
+## [0.1.0] - 2026-07-25
 
 ### Initial Release
 

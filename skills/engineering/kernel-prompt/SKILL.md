@@ -1,5 +1,5 @@
 ---
-name: kernel
+name: kernel-prompt
 description: Kernel a prompt — refine or compose it into one paragraph that lands on first try. Use when the user wants to refine or compose a prompt. Other skills reach this when they need a kernel'd prompt as input.
 ---
 

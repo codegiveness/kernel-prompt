@@ -1,4 +1,4 @@
-# kernel
+# kernel-prompt
 
 > Kernel a prompt — refine or compose it into one paragraph that lands on first try.
 
@@ -25,20 +25,20 @@
 
 ## Files
 
-- [`SKILL.md`](../skills/engineering/kernel/SKILL.md) — the pass
-- [`EXAMPLE.md`](../skills/engineering/kernel/EXAMPLE.md) — disclosed worked example
-- [`REFORMULATIONS.md`](../skills/engineering/kernel/REFORMULATIONS.md) — seven reformulation patterns
+- [`SKILL.md`](../skills/engineering/kernel-prompt/SKILL.md) — the pass
+- [`EXAMPLE.md`](../skills/engineering/kernel-prompt/EXAMPLE.md) — disclosed worked example
+- [`REFORMULATIONS.md`](../skills/engineering/kernel-prompt/REFORMULATIONS.md) — seven reformulation patterns
 
 ## Install
 
 ```bash
-npm install -g @codegiveness/kernel-skill
-kernel-skill install
+npm install -g @codegiveness/kernel-prompt
+kernel-prompt install
 ```
 
 Or as a Claude Code plugin:
 
 ```
-/plugin marketplace add codegiveness/kernel-skill
-/plugin install kernel-skill@codegiveness
+/plugin marketplace add codegiveness/kernel-prompt
+/plugin install kernel-prompt@codegiveness
 ```

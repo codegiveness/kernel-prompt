@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # NOTE: Dev-only script for maintainers of this repo.
-# Symlinks the kernel skill into the local harness skill directories:
+# Symlinks the kernel-prompt skill into the local harness skill directories:
 #   - ~/.claude/skills  — Claude Code
 #   - ~/.agents/skills  — Codex and other Agent Skills-compatible harnesses
 # Each entry is a symlink into this repo, so a git pull keeps the skill current.
@@ -10,8 +10,8 @@ set -euo pipefail
 REPO="$(cd "$(dirname "$0")/.." && pwd)"
 DESTS=("$HOME/.claude/skills" "$HOME/.agents/skills")
 
-SRC="$REPO/skills/engineering/kernel"
-NAME="kernel"
+SRC="$REPO/skills/engineering/kernel-prompt"
+NAME="kernel-prompt"
 
 for DEST in "${DESTS[@]}"; do
   if [ -L "$DEST" ]; then

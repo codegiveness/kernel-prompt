@@ -68,15 +68,15 @@ jobs:
           fi
           echo "✅ Tag matches version"
 
-      - name: Verify kernel skill files present
+      - name: Verify kernel-prompt skill files present
         run: |
           for f in SKILL.md EXAMPLE.md REFORMULATIONS.md; do
-            if [ ! -f "skills/engineering/kernel/$f" ]; then
-              echo "❌ missing skills/engineering/kernel/$f"
+            if [ ! -f "skills/engineering/kernel-prompt/$f" ]; then
+              echo "❌ missing skills/engineering/kernel-prompt/$f"
               exit 1
             fi
           done
-          echo "✅ all kernel files present"
+          echo "✅ all kernel-prompt files present"
 
   release:
     needs: validate
@@ -103,7 +103,7 @@ jobs:
         run: |
           for attempt in 1 2 3; do
             if npm publish --provenance --access public 2>&1; then
-              echo "✅ Published @codegiveness/kernel-skill (attempt ${attempt})"
+              echo "✅ Published @codegiveness/kernel-prompt (attempt ${attempt})"
               break
             elif [ "$attempt" -eq 3 ]; then
               echo "❌ Failed to publish after 3 attempts"

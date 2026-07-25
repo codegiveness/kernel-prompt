@@ -1,16 +1,16 @@
 {
-  "name": "@codegiveness/kernel-skill",
+  "name": "@codegiveness/kernel-prompt",
   "version": "0.1.0",
   "description": "Kernel — a prompt stripped to what works. Six cuts that turn a vague request into a prompt that lands on first try.",
   "license": "MIT",
   "author": "codegiveness",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/codegiveness/kernel-skill.git"
+    "url": "git+https://github.com/codegiveness/kernel-prompt.git"
   },
-  "homepage": "https://github.com/codegiveness/kernel-skill",
+  "homepage": "https://github.com/codegiveness/kernel-prompt",
   "bugs": {
-    "url": "https://github.com/codegiveness/kernel-skill/issues"
+    "url": "https://github.com/codegiveness/kernel-prompt/issues"
   },
   "keywords": [
     "prompt-engineering",
@@ -28,7 +28,7 @@
     "registry": "https://registry.npmjs.org/"
   },
   "bin": {
-    "kernel-skill": "bin/kernel-skill.mjs"
+    "kernel-prompt": "bin/kernel-prompt.mjs"
   },
   "files": [
     "skills/",

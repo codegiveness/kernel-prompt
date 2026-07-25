@@ -1,6 +1,6 @@
 # Worked example
 
-Disclosed reference for [`kernel`](SKILL.md). A full pass: grounding, combining a multi-goal request into one prompt, the six-letter pass, and the exhaustive vague-phrasing sweep with per-clause verdicts.
+Disclosed reference for [`kernel-prompt`](SKILL.md). A full pass: grounding, combining a multi-goal request into one prompt, the six-letter pass, and the exhaustive vague-phrasing sweep with per-clause verdicts.
 
 ## Input (vague, multi-goal request)
 

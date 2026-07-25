@@ -8,7 +8,7 @@ This folder is managed by `@changesets/cli`. A changeset is a Markdown file desc
 npx changeset
 ```
 
-Pick `@codegiveness/kernel-skill`, choose minor/patch, write a one-line summary. Commit the new file under `.changeset/`. The Release workflow does the rest.
+Pick `@codegiveness/kernel-prompt`, choose minor/patch, write a one-line summary. Commit the new file under `.changeset/`. The Release workflow does the rest.
 
 ## Docs
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-// kernel-skill — thin npm wrapper for install / update.
-// The skill itself is prose (skills/engineering/kernel/*.md); this script
+// kernel-prompt — thin npm wrapper for install / update.
+// The skill itself is prose (skills/engineering/kernel-prompt/*.md); this script
 // only symlinks the skill into the local harness directories or pulls the
 // latest version via npm.
 
@@ -9,11 +9,11 @@ import { existsSync, mkdirSync, readlinkSync, realpathSync, rmSync, symlinkSync 
 import { dirname, join, resolve } from "node:path";
 import { homedir } from "node:os";
 
-const PKG = "@codegiveness/kernel-skill";
-const SKILL_NAME = "kernel";
+const PKG = "@codegiveness/kernel-prompt";
+const SKILL_NAME = "kernel-prompt";
 
 // Resolve the skill source relative to this bin file's installed location.
-// npm installs the package so that bin/kernel-skill.mjs sits at <pkg-root>/bin/.
+// npm installs the package so that bin/kernel-prompt.mjs sits at <pkg-root>/bin/.
 const PKG_ROOT = resolve(dirname(new URL(import.meta.url).pathname), "..");
 const SKILL_SRC = join(PKG_ROOT, "skills", "engineering", SKILL_NAME);
 
@@ -90,16 +90,16 @@ switch (cmd) {
   case "help":
   case "--help":
   case "-h":
-    console.log(`kernel-skill — install or update the kernel skill
+    console.log(`kernel-prompt — install or update the kernel-prompt skill
 
 usage:
-  kernel-skill install   symlink the skill into ~/.claude/skills and ~/.agents/skills
-  kernel-skill update    pull the latest version via npm
-  kernel-skill help      show this help
+  kernel-prompt install   symlink the skill into ~/.claude/skills and ~/.agents/skills
+  kernel-prompt update    pull the latest version via npm
+  kernel-prompt help      show this help
 `);
     break;
   default:
     console.error(`unknown command: ${cmd}`);
-    console.error("run `kernel-skill help` for usage.");
+    console.error("run `kernel-prompt help` for usage.");
     process.exit(2);
 }

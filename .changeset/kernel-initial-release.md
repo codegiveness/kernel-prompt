@@ -1,5 +1,5 @@
 ---
-"@codegiveness/kernel-skill": minor
+"@codegiveness/kernel-prompt": minor
 ---
 
-Initial release of `kernel` — a prompt-engineering skill that refines or composes a prompt into one paragraph that lands on first try.
+Initial release of `kernel-prompt` — a prompt-engineering skill that refines or composes a prompt into one paragraph that lands on first try.

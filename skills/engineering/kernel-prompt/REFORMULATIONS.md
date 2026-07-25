@@ -1,6 +1,6 @@
 # Reformulations
 
-Disclosed reference for [`kernel`](SKILL.md). When a content clause fails the two-reader test, apply one of the seven patterns below. The table shows concrete examples of each pattern in action.
+Disclosed reference for [`kernel-prompt`](SKILL.md). When a content clause fails the two-reader test, apply one of the seven patterns below. The table shows concrete examples of each pattern in action.
 
 ## Patterns
 

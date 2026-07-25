@@ -1,6 +1,6 @@
-# Kernel Skill
+# Kernel Prompt Skill
 
-A single-skill repository publishing **kernel** — a prompt-engineering skill that refines or composes a prompt into one paragraph that lands on first try.
+A single-skill repository publishing **kernel-prompt** — a prompt-engineering skill that refines or composes a prompt into one paragraph that lands on first try.
 
 ## Language
 
@@ -38,5 +38,5 @@ _Avoid_: rewrite, fix-up
 
 ## Flagged ambiguities
 
-- "kernel" was previously used to mean both the _skill_ and the _output paragraph_ — resolved: the skill is **kernel**; the output is the "kernel'd prompt" or "final paragraph". The word "kernel" alone refers to the skill.
+- "kernel" was previously used to mean both the _skill_ and the _output paragraph_ — resolved: the skill is **kernel-prompt**; the output is the "kernel'd prompt" or "final paragraph". The word "kernel" alone refers to the KERNEL pass, not the skill.
 - "sweep" was previously used to mean both the six-letter pass and the vague-phrasing sweep — resolved: the six-letter pass is the **Pass**; the post-pass clause-by-clause check is the "vague-phrasing sweep".

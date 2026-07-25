@@ -72,7 +72,7 @@ Every prompt-engineering failure mode traces back to one root cause: the request
 >
 > John Ousterhout, [A Philosophy Of Software Design](https://www.amazon.co.uk/Philosophy-Software-Design-2nd/dp/173210221X)
 
-`kernel-prompt` is a deep module. Its interface is one paragraph; its behaviour is a six-letter pass (K-E-R-N-E-L) plus an exhaustive vague-phrasing sweep. You hand it a vague request, it returns a paragraph that lands. The simplicity is the point — the depth is in the cuts.
+`kernel-prompt` is a deep module. Its interface is one paragraph; its behaviour is a six-letter pass — **K**eep it simple, **E**asy to verify, **R**eproducible, **N**arrow scope, **E**xplicit constraints, **L**ogical structure — plus an exhaustive vague-phrasing sweep. That paragraph carries five substances as flowing prose: **context** (grounded codebase symbols), **task** (the operation to perform), **constraints** (type, scope, limits), **format** (the deliverable shape), and **verify** (a checkable success criterion). You hand it a vague request, it returns a paragraph that lands. The simplicity is the point — the depth is in the cuts.
 
 > "With a ubiquitous language, conversations among developers and expressions of the code are all derived from the same domain model."
 >
@@ -81,6 +81,18 @@ Every prompt-engineering failure mode traces back to one root cause: the request
 The pass grounds vague terms to concrete codebase symbols before it writes. "The auth service" becomes `refreshToken (src/auth/tokens.ts:42)`. The paragraph carries the grounded vocabulary, not the user's original phrasing — so two readers see the same code, not the same ambiguity.
 
 The skill is model-invoked: any agent can reach for it when the task fits, and a user can call it directly. It has no `disable-model-invocation` flag — that's deliberate. A kernel'd prompt is the input every other skill wants.
+
+## Before / after
+
+**Vague input:**
+
+> Our auth service has a token refresh bug — users get logged out. Fix it, add a test that catches the regression, and update the runbook so on-call knows what to do.
+
+**Kernel'd output (one paragraph):**
+
+> `refreshToken` (src/auth/tokens.ts:42) drops sessions on token refresh, breaking `TokenStore` (src/auth/store.ts:15); patch `refreshToken` so it stops dropping sessions on refresh failure, add a `bun test` regression that fails before the fix and passes after, and update `docs/runbooks/auth.md` with Symptom, Cause, Fix, and Verification sections (under 200 words each), shipping as one PR — TypeScript strict, no `as any`.
+
+The vague input names no symbols; the output grounds every term in a file and function, attaches a checkable success criterion, and carries its constraints inline. That's one pass — six cuts, one sweep, one paragraph.
 
 ## Reference
 

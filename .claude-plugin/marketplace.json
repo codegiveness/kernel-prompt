@@ -1,0 +1,22 @@
+{
+  "name": "codegiveness",
+  "owner": {
+    "name": "codegiveness",
+    "url": "https://github.com/codegiveness"
+  },
+  "description": "codegiveness skills — prompt-engineering and agent disciplines, as installable Claude Code plugins.",
+  "plugins": [
+    {
+      "name": "kernel-skill",
+      "source": "./",
+      "description": "Kernel — a prompt stripped to what works. Six cuts that turn a vague request into a prompt that lands on first try.",
+      "category": "engineering",
+      "keywords": [
+        "prompt-engineering",
+        "kernel",
+        "prompt",
+        "skill"
+      ]
+    }
+  ]
+}

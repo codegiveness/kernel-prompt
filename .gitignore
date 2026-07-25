@@ -1,0 +1,38 @@
+# Dependencies
+node_modules/
+
+# Build artifacts
+dist/
+*.tsbuildinfo
+
+# Environment / secrets
+.env
+.env.local
+.env.*.local
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE / editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Agent / tooling state (local only — never publish)
+.omo/
+.opencode/
+.codegraph/
+.claude/
+.impeccable/
+.playwright-mcp/
+.worktrees/
+opencode.json
+codegraph.md
+plans/
+.scratch/
+
+# Logs
+*.log

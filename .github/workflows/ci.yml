@@ -1,0 +1,65 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Validate (package.json + npm dry-run + skill files)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify kernel skill files are present
+        run: |
+          for f in SKILL.md EXAMPLE.md REFORMULATIONS.md; do
+            if [ ! -f "skills/engineering/kernel/$f" ]; then
+              echo "❌ missing skills/engineering/kernel/$f"
+              exit 1
+            fi
+            echo "✅ skills/engineering/kernel/$f present"
+          done
+
+      - name: Verify package.json name
+        run: |
+          NAME=$(node -p "require('./package.json').name")
+          if [ "$NAME" != "@codegiveness/kernel-skill" ]; then
+            echo "❌ package name is $NAME, expected @codegiveness/kernel-skill"
+            exit 1
+          fi
+          echo "✅ package name is @codegiveness/kernel-skill"
+
+      - name: Verify plugin version matches package version
+        run: |
+          PV=$(node -p "require('./.claude-plugin/plugin.json').version")
+          PJ=$(node -p "require('./package.json').version")
+          if [ "$PV" != "$PJ" ]; then
+            echo "❌ plugin.json version ($PV) != package.json version ($PJ)"
+            exit 1
+          fi
+          echo "✅ versions match: $PV"
+
+      - name: npm publish --dry-run
+        run: npm publish --dry-run

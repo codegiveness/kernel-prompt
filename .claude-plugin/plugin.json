@@ -1,0 +1,22 @@
+{
+  "name": "kernel-skill",
+  "version": "0.1.0",
+  "description": "Kernel — a prompt stripped to what works. Six cuts that turn a vague request into a prompt that lands on first try.",
+  "author": {
+    "name": "codegiveness",
+    "url": "https://github.com/codegiveness"
+  },
+  "homepage": "https://github.com/codegiveness/kernel-skill",
+  "repository": "https://github.com/codegiveness/kernel-skill",
+  "license": "MIT",
+  "keywords": [
+    "prompt-engineering",
+    "kernel",
+    "prompt",
+    "skill",
+    "agent"
+  ],
+  "skills": [
+    "./skills/engineering/kernel"
+  ]
+}

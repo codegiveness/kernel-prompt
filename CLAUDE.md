@@ -24,3 +24,17 @@ The skill is **model-invoked**: any agent (Claude Code, Codex, OpenCode) can rea
 When you change `SKILL.md`, re-read `EXAMPLE.md` and `REFORMULATIONS.md` — the example must stay a faithful disclosure of the pass, and the reformulations must cover every pattern the sweep names. A drift between any two breaks the skill's contract with its reader.
 
 The `version` field in `.claude-plugin/plugin.json` must stay in sync with `package.json`'s `version` — the plugin uses it to decide when installed users see an update.
+
+## Agent skills
+
+### Issue tracker
+
+Issues live in this repo's GitHub Issues (uses the `gh` CLI). See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Five canonical roles, label string equals role name. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context: `CONTEXT.md` at root, `docs/adr/` for ADRs. See `docs/agents/domain.md`.

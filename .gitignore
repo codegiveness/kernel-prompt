@@ -33,6 +33,7 @@ opencode.json
 codegraph.md
 plans/
 .scratch/
+docs/agents/
 
 # Logs
 *.log

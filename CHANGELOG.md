@@ -1,5 +1,11 @@
 # @codegiveness/kernel-prompt
 
+## [0.1.3] - 2026-07-26
+
+### Fixed
+
+- Restore skills.sh badge (removed in 0.1.2). Badge shows "resource not found" until skills.sh telemetry from `npx skills add` installs populates the listing — this is expected, not a broken badge. Per [skills.sh docs](https://skills.sh/docs): "The skills leaderboard ranks skills based on anonymous telemetry data collected from the skills CLI."
+
 ## [0.1.2] - 2026-07-26
 
 ### Fixed

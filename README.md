@@ -1,5 +1,6 @@
 # Kernel — a prompt stripped to what works
 
+[![skills.sh](https://skills.sh/b/codegiveness/kernel-prompt)](https://skills.sh/codegiveness/kernel-prompt)
 [![npm version](https://img.shields.io/npm/v/@codegiveness/kernel-prompt.svg?style=flat-square)](https://www.npmjs.com/package/@codegiveness/kernel-prompt)
 [![npm downloads](https://img.shields.io/npm/dm/@codegiveness/kernel-prompt.svg?style=flat-square)](https://www.npmjs.com/package/@codegiveness/kernel-prompt)
 [![MIT License](https://img.shields.io/npm/l/@codegiveness/kernel-prompt.svg?style=flat-square)](https://github.com/codegiveness/kernel-prompt/blob/main/LICENSE)

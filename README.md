@@ -1,5 +1,6 @@
 # Kernel — a prompt stripped to what works
 
+[![skills.sh](https://skills.sh/b/codegiveness/kernel-skill)](https://skills.sh/codegiveness/kernel-skill)
 [![npm version](https://img.shields.io/npm/v/@codegiveness/kernel-skill.svg?style=flat-square)](https://www.npmjs.com/package/@codegiveness/kernel-skill)
 [![npm downloads](https://img.shields.io/npm/dm/@codegiveness/kernel-skill.svg?style=flat-square)](https://www.npmjs.com/package/@codegiveness/kernel-skill)
 [![MIT License](https://img.shields.io/npm/l/@codegiveness/kernel-skill.svg?style=flat-square)](https://github.com/codegiveness/kernel-skill/blob/main/LICENSE)
@@ -8,19 +9,28 @@
 
 Six cuts that turn a vague request into a prompt that lands on first try.
 
-## Quickstart
+## Quickstart (30-second setup)
+
+1. Run the skills.sh installer:
+
+```bash
+npx skills@latest add codegiveness/kernel-skill
+```
+
+2. Pick the skill, and which coding agent you want to install it on (Claude Code, Codex, OpenCode, or others).
+
+3. Bam — you're ready to go. The skill is prose; nothing compiles.
+
+## Install via npm
+
+Prefer a managed npm install you control by hand?
 
 ```bash
 npm install -g @codegiveness/kernel-skill
+kernel-skill install   # symlinks the skill into ~/.claude/skills and ~/.agents/skills
 ```
 
-Then in any agent that loads skills from `~/.agents/skills` (Claude Code, Codex, OpenCode):
-
-```bash
-kernel-skill install   # symlinks the skill into ~/.agents/skills/kernel
-```
-
-Or copy the three files from `skills/engineering/kernel/` into your project's skill directory by hand — the skill is prose, nothing compiles.
+Or copy the three files from `skills/engineering/kernel/` into your project's skill directory — the skill is prose, nothing compiles.
 
 To stay current:
 
@@ -44,9 +54,10 @@ claude plugin marketplace add codegiveness/kernel-skill
 claude plugin install kernel-skill@codegiveness
 ```
 
-Two ways to install, two philosophies:
+Three ways to install, three philosophies:
 
-- **npm** copies the skill into your harness skill directory so you can hack on it and make it your own.
+- **[skills.sh](https://skills.sh/codegiveness/kernel-skill)** copies the skill into your project so you can hack on it and make it your own.
+- **npm** installs the managed package globally and symlinks it into every agent harness you use.
 - **The plugin** keeps it as a read-only, always-current bundle you don't edit — best when you just want the skill to work and follow along as it evolves.
 
 ## Why This Skill Exists

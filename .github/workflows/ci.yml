@@ -51,6 +51,93 @@ jobs:
           fi
           echo "✅ package name is @codegiveness/kernel-skill"
 
+      - name: Verify naming consistency
+        run: |
+          PKG_NAME=$(node -p "require('./package.json').name")
+          if [ "$PKG_NAME" != "@codegiveness/kernel-skill" ]; then
+            echo "❌ package.json name is $PKG_NAME, expected @codegiveness/kernel-skill"
+            exit 1
+          fi
+          echo "✅ package.json name is @codegiveness/kernel-skill"
+
+          PKG_BIN=$(node -p "JSON.stringify(require('./package.json').bin)")
+          if [ "$PKG_BIN" != '{"kernel-skill":"bin/kernel-skill.mjs"}' ]; then
+            echo "❌ package.json bin is $PKG_BIN, expected {\"kernel-skill\":\"bin/kernel-skill.mjs\"}"
+            exit 1
+          fi
+          echo "✅ package.json bin is {\"kernel-skill\":\"bin/kernel-skill.mjs\"}"
+
+          PLUGIN_NAME=$(node -p "require('./.claude-plugin/plugin.json').name")
+          if [ "$PLUGIN_NAME" != "kernel-skill" ]; then
+            echo "❌ plugin.json name is $PLUGIN_NAME, expected kernel-skill"
+            exit 1
+          fi
+          echo "✅ plugin.json name is kernel-skill"
+
+          PLUGIN_SKILLS=$(node -p "require('./.claude-plugin/plugin.json').skills.includes('./skills/engineering/kernel')")
+          if [ "$PLUGIN_SKILLS" != "true" ]; then
+            echo "❌ plugin.json skills does not include ./skills/engineering/kernel, got: $PLUGIN_SKILLS"
+            exit 1
+          fi
+          echo "✅ plugin.json skills includes ./skills/engineering/kernel"
+
+          MARKETPLACE_NAME=$(node -p "require('./.claude-plugin/marketplace.json').plugins[0].name")
+          if [ "$MARKETPLACE_NAME" != "kernel-skill" ]; then
+            echo "❌ marketplace.json first plugin name is $MARKETPLACE_NAME, expected kernel-skill"
+            exit 1
+          fi
+          echo "✅ marketplace.json first plugin name is kernel-skill"
+
+          SKILL_FM_NAME=$(grep -E "^name:" skills/engineering/kernel/SKILL.md | head -1 | sed 's/^name:[[:space:]]*//')
+          if [ "$SKILL_FM_NAME" != "kernel" ]; then
+            echo "❌ SKILL.md frontmatter name is '$SKILL_FM_NAME', expected kernel"
+            exit 1
+          fi
+          echo "✅ SKILL.md frontmatter name is kernel"
+
+          if ! grep -q 'const PKG = "@codegiveness/kernel-skill"' bin/kernel-skill.mjs; then
+            echo "❌ bin/kernel-skill.mjs missing 'const PKG = \"@codegiveness/kernel-skill\"'"
+            exit 1
+          fi
+          echo "✅ bin/kernel-skill.mjs has const PKG = @codegiveness/kernel-skill"
+
+          if ! grep -q 'const SKILL_NAME = "kernel"' bin/kernel-skill.mjs; then
+            echo "❌ bin/kernel-skill.mjs missing 'const SKILL_NAME = \"kernel\"'"
+            exit 1
+          fi
+          echo "✅ bin/kernel-skill.mjs has const SKILL_NAME = kernel"
+
+          if ! grep -q "codegiveness/kernel-skill" README.md; then
+            echo "❌ README.md missing 'codegiveness/kernel-skill'"
+            exit 1
+          fi
+          echo "✅ README.md contains codegiveness/kernel-skill"
+
+          if ! grep -q "@codegiveness/kernel-skill" README.md; then
+            echo "❌ README.md missing '@codegiveness/kernel-skill'"
+            exit 1
+          fi
+          echo "✅ README.md contains @codegiveness/kernel-skill"
+
+          CHANGESET_REPO=$(node -p "require('./.changeset/config.json').changelog[1].repo")
+          if [ "$CHANGESET_REPO" != "codegiveness/kernel-skill" ]; then
+            echo "❌ .changeset/config.json changelog repo is $CHANGESET_REPO, expected codegiveness/kernel-skill"
+            exit 1
+          fi
+          echo "✅ .changeset/config.json changelog repo is codegiveness/kernel-skill"
+
+          if ! grep -q 'NAME="kernel"' scripts/link-skills.sh; then
+            echo "❌ scripts/link-skills.sh missing 'NAME=\"kernel\"'"
+            exit 1
+          fi
+          echo "✅ scripts/link-skills.sh has NAME=kernel"
+
+          if ! grep -q 'SRC="$REPO/skills/engineering/kernel"' scripts/link-skills.sh; then
+            echo "❌ scripts/link-skills.sh missing 'SRC=\"$REPO/skills/engineering/kernel\"'"
+            exit 1
+          fi
+          echo "✅ scripts/link-skills.sh has SRC=\$REPO/skills/engineering/kernel"
+
       - name: Verify plugin version matches package version
         run: |
           PV=$(node -p "require('./.claude-plugin/plugin.json').version")

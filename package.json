@@ -1,6 +1,6 @@
 {
   "name": "@codegiveness/kernel-prompt",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Kernel — a prompt stripped to what works. Six cuts that turn a vague request into a prompt that lands on first try.",
   "license": "MIT",
   "author": "codegiveness",

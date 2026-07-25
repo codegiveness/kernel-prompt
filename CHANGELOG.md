@@ -1,5 +1,11 @@
 # @codegiveness/kernel-prompt
 
+## [0.1.2] - 2026-07-26
+
+### Fixed
+
+- Remove broken skills.sh badge from README (repo not registered on skills.sh — badge rendered "resource not found"). Will re-add when listing is live.
+
 ## [0.1.1] - 2026-07-26
 
 ### Renamed & Released

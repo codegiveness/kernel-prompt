@@ -16,7 +16,7 @@ concurrency:
 
 jobs:
   validate:
-    name: Validate (package.json + npm dry-run + skill files)
+    name: Validate distribution and skill discovery
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -32,24 +32,33 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Discover skill with Skills CLI
+        run: npx --yes skills@latest add . --list
+
+      - name: Verify isolated Skills CLI installation
+        env:
+          DISABLE_TELEMETRY: "1"
+        run: |
+          SOURCE="$GITHUB_WORKSPACE"
+          TEMP="$(mktemp -d)"
+          trap 'rm -rf "$TEMP"' EXIT
+          export HOME="$TEMP/home"
+          mkdir -p "$HOME" "$TEMP/project"
+          cd "$TEMP/project"
+          npx --yes skills@latest add "$SOURCE" --skill kernel-prompt --agent codex --copy --yes
+          for f in SKILL.md EXAMPLE.md REFORMULATIONS.md; do
+            cmp "$SOURCE/skills/kernel-prompt/$f" ".agents/skills/kernel-prompt/$f"
+          done
+
       - name: Verify kernel-prompt skill files are present
         run: |
           for f in SKILL.md EXAMPLE.md REFORMULATIONS.md; do
-            if [ ! -f "skills/engineering/kernel-prompt/$f" ]; then
-              echo "❌ missing skills/engineering/kernel-prompt/$f"
+            if [ ! -f "skills/kernel-prompt/$f" ]; then
+              echo "missing skills/kernel-prompt/$f"
               exit 1
             fi
-            echo "✅ skills/engineering/kernel-prompt/$f present"
+            echo "skills/kernel-prompt/$f present"
           done
-
-      - name: Verify package.json name
-        run: |
-          NAME=$(node -p "require('./package.json').name")
-          if [ "$NAME" != "@codegiveness/kernel-prompt" ]; then
-            echo "❌ package name is $NAME, expected @codegiveness/kernel-prompt"
-            exit 1
-          fi
-          echo "✅ package name is @codegiveness/kernel-prompt"
 
       - name: Verify naming consistency
         run: |
@@ -60,13 +69,6 @@ jobs:
           fi
           echo "✅ package.json name is @codegiveness/kernel-prompt"
 
-          PKG_BIN=$(node -p "JSON.stringify(require('./package.json').bin)")
-          if [ "$PKG_BIN" != '{"kernel-prompt":"bin/kernel-prompt.mjs"}' ]; then
-            echo "❌ package.json bin is $PKG_BIN, expected {\"kernel-prompt\":\"bin/kernel-prompt.mjs\"}"
-            exit 1
-          fi
-          echo "✅ package.json bin is {\"kernel-prompt\":\"bin/kernel-prompt.mjs\"}"
-
           PLUGIN_NAME=$(node -p "require('./.claude-plugin/plugin.json').name")
           if [ "$PLUGIN_NAME" != "kernel-prompt" ]; then
             echo "❌ plugin.json name is $PLUGIN_NAME, expected kernel-prompt"
@@ -74,12 +76,12 @@ jobs:
           fi
           echo "✅ plugin.json name is kernel-prompt"
 
-          PLUGIN_SKILLS=$(node -p "require('./.claude-plugin/plugin.json').skills.includes('./skills/engineering/kernel-prompt')")
+          PLUGIN_SKILLS=$(node -p "require('./.claude-plugin/plugin.json').skills.includes('./skills/kernel-prompt')")
           if [ "$PLUGIN_SKILLS" != "true" ]; then
-            echo "❌ plugin.json skills does not include ./skills/engineering/kernel-prompt, got: $PLUGIN_SKILLS"
+            echo "plugin.json skills does not include ./skills/kernel-prompt, got: $PLUGIN_SKILLS"
             exit 1
           fi
-          echo "✅ plugin.json skills includes ./skills/engineering/kernel-prompt"
+          echo "plugin.json skills includes ./skills/kernel-prompt"
 
           MARKETPLACE_NAME=$(node -p "require('./.claude-plugin/marketplace.json').plugins[0].name")
           if [ "$MARKETPLACE_NAME" != "kernel-prompt" ]; then
@@ -88,36 +90,12 @@ jobs:
           fi
           echo "✅ marketplace.json first plugin name is kernel-prompt"
 
-          SKILL_FM_NAME=$(grep -E "^name:" skills/engineering/kernel-prompt/SKILL.md | head -1 | sed 's/^name:[[:space:]]*//')
+          SKILL_FM_NAME=$(grep -E "^name:" skills/kernel-prompt/SKILL.md | head -1 | sed 's/^name:[[:space:]]*//')
           if [ "$SKILL_FM_NAME" != "kernel-prompt" ]; then
             echo "❌ SKILL.md frontmatter name is '$SKILL_FM_NAME', expected kernel-prompt"
             exit 1
           fi
           echo "✅ SKILL.md frontmatter name is kernel-prompt"
-
-          if ! grep -q 'const PKG = "@codegiveness/kernel-prompt"' bin/kernel-prompt.mjs; then
-            echo "❌ bin/kernel-prompt.mjs missing 'const PKG = \"@codegiveness/kernel-prompt\"'"
-            exit 1
-          fi
-          echo "✅ bin/kernel-prompt.mjs has const PKG = @codegiveness/kernel-prompt"
-
-          if ! grep -q 'const SKILL_NAME = "kernel-prompt"' bin/kernel-prompt.mjs; then
-            echo "❌ bin/kernel-prompt.mjs missing 'const SKILL_NAME = \"kernel-prompt\"'"
-            exit 1
-          fi
-          echo "✅ bin/kernel-prompt.mjs has const SKILL_NAME = kernel-prompt"
-
-          if ! grep -q "codegiveness/kernel-prompt" README.md; then
-            echo "❌ README.md missing 'codegiveness/kernel-prompt'"
-            exit 1
-          fi
-          echo "✅ README.md contains codegiveness/kernel-prompt"
-
-          if ! grep -q "@codegiveness/kernel-prompt" README.md; then
-            echo "❌ README.md missing '@codegiveness/kernel-prompt'"
-            exit 1
-          fi
-          echo "✅ README.md contains @codegiveness/kernel-prompt"
 
           CHANGESET_REPO=$(node -p "require('./.changeset/config.json').changelog[1].repo")
           if [ "$CHANGESET_REPO" != "codegiveness/kernel-prompt" ]; then
@@ -126,22 +104,17 @@ jobs:
           fi
           echo "✅ .changeset/config.json changelog repo is codegiveness/kernel-prompt"
 
-          if ! grep -q 'NAME="kernel-prompt"' scripts/link-skills.sh; then
-            echo "❌ scripts/link-skills.sh missing 'NAME=\"kernel-prompt\"'"
-            exit 1
-          fi
-          echo "✅ scripts/link-skills.sh has NAME=kernel-prompt"
 
-          if ! grep -q 'SRC="$REPO/skills/engineering/kernel-prompt"' scripts/link-skills.sh; then
-            echo "❌ scripts/link-skills.sh missing 'SRC=\"$REPO/skills/engineering/kernel-prompt\"'"
-            exit 1
-          fi
-          echo "✅ scripts/link-skills.sh has SRC=\$REPO/skills/engineering/kernel-prompt"
-
-      - name: Verify plugin version matches package version
+      - name: Verify distribution versions agree
         run: |
           PV=$(node -p "require('./.claude-plugin/plugin.json').version")
           PJ=$(node -p "require('./package.json').version")
+          LOCK_VERSION=$(node -p "require('./package-lock.json').version")
+          LOCK_ROOT_VERSION=$(node -p "require('./package-lock.json').packages[''].version")
+          if [ "$LOCK_VERSION" != "$PJ" ] || [ "$LOCK_ROOT_VERSION" != "$PJ" ]; then
+            echo "lockfile versions ($LOCK_VERSION, $LOCK_ROOT_VERSION) differ from package version ($PJ)"
+            exit 1
+          fi
           if [ "$PV" != "$PJ" ]; then
             echo "❌ plugin.json version ($PV) != package.json version ($PJ)"
             exit 1

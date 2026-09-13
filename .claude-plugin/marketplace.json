@@ -9,7 +9,7 @@
     {
       "name": "kernel-prompt",
       "source": "./",
-      "description": "Kernel — a prompt stripped to what works. Six cuts that turn a vague request into a prompt that lands on first try.",
+      "description": "Turn rough requests into clear, actionable prompts while preserving intent, grounding details, and resolving consequential ambiguity.",
       "category": "engineering",
       "keywords": [
         "prompt-engineering",

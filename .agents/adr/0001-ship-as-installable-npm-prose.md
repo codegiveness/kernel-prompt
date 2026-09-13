@@ -1,7 +1,7 @@
 # 0001 — Ship the skill as installable npm prose, not a compiled binary
 
 **Date**: 2026-07-25
-**Status**: Accepted
+**Status**: Accepted; installation mechanism revised 2026-09-13
 
 ## Context
 
@@ -9,12 +9,12 @@
 
 ## Decision
 
-Ship the skill as installable npm **files**, not a compiled binary. `package.json`'s `files` array lists `skills/`, `bin/`, `README.md`, `LICENSE`, and `CHANGELOG.md` — npm publishes exactly those. There is no build step, no platform matrix, and no per-platform package.
+Ship the skill as prose **files**, not a compiled binary. The canonical source is `skills/kernel-prompt/`, matching the flat single-skill layout of `codegiveness/shared-understanding`. Install with `npx skills@latest add codegiveness/kernel-prompt`; the Skills CLI handles agent-specific destinations. `package.json` retains npm distribution of `skills/`, `README.md`, `LICENSE`, and `CHANGELOG.md`, without a `bin` entry. There is no build step, platform matrix, or repository-specific installer.
 
 ## Consequences
 
-- `npm install` delivers the Markdown directly; there is nothing to compile.
-- `npm publish --dry-run` resolves without error as long as `package.json` is valid and the `files` array points at real paths.
-- The `bin` entry (`kernel-prompt`) is a tiny Node script for `install` / `update` — it is not the skill itself. The skill is the Markdown.
-- We keep the umans-gate release flow (GitHub Actions auto-publish on `v*` tag) but drop the platform-binary matrix entirely.
+- The skill and its two reference files stay together so relative links work.
+- Skills CLI discovery and isolated local installation verify the source layout; `npm pack --dry-run` verifies the npm payload.
+- The former Node install/update wrapper and its helper scripts and regression tests are removed. Installation behavior belongs to the external Skills CLI.
+- Existing Claude Code plugin metadata points to the same canonical skill. GitHub Actions retains npm prose publication on `v*` tags.
 - The npm token (`secrets.NPM_TOKEN`) is deferred — CI references it as a placeholder secret to be added before the first real publish.

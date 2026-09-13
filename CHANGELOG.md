@@ -1,5 +1,28 @@
 # @codegiveness/kernel-prompt
 
+## Unreleased
+
+## [0.2.0] - 2026-09-13
+
+### Changed
+
+- Redesign KERNEL around intent preservation, evidence, consequential decisions, task boundaries, meaningful success checks, and a portable handoff.
+- Replace mandatory one-paragraph output and visible per-clause audits with ready, clarification, and provisional response states that honor the requested format and language.
+- Preserve fresh-information requests, multi-part deliverables, exact task inputs, and later corrections. Keep unknowns explicit rather than inventing versions, paths, diagnoses, or constraints.
+- Replace meaning-changing reformulations and fabricated grounding examples with faithful repairs and examples covering missing evidence, conflicting constraints, no-question requests, quoted instructions, and strict formats.
+- Reduce core instruction overhead and check each added obligation against the request, necessary completion criteria, or host requirements. Add examples distinguishing execution limits from planning, verbatim task inputs from transformed outputs, and unresolved permission from approval already granted.
+- Check whether an existing prompt needs repair before rewriting it. Keep clear clauses unchanged, scope delegated choices, distinguish outcome checks from extra activity reports, and avoid repeated template payloads unless repetition is required by the task or format.
+- Check surrounding task context before returning a draft unchanged. Carry supplied facts, input locations, access, and approval into the handoff while keeping refiner-only directions separate. Fill delegated choices with concise values instead of developing unassigned creative or implementation details.
+- Add an LLM-consumer-only audit agreement and durable improvement history, with saved instruction snapshots, model outputs, and unresolved consumer difficulties. Keep historical scores separate from accuracy claims and installer verification.
+- Flatten the canonical skill directory to `skills/kernel-prompt/`, matching the single-skill layout of `codegiveness/shared-understanding`. Make `npx skills@latest add codegiveness/kernel-prompt` the primary installation route; preserve the skill's prose unchanged by this migration.
+- Remove the custom npm install/update command, development helper scripts, and obsolete installer tests. Update package metadata, plugin paths, CI, release checks, and current documentation for the flat layout and Skills CLI installation.
+- Retire JavaScript CodeQL analysis after removing the last executable source; verify real Skills CLI installation in CI instead.
+
+### Fixed
+
+- Preserve the action, object, and conditions of prohibitions instead of broadening execution limits into planning bans or reopening granted approval. Distinguish task-input preservation from unrequested output-format restrictions.
+- Synchronize the stale lockfile package version with the existing 0.1.3 package and plugin versions, without changing dependency resolutions; check all version fields in CI.
+
 ## [0.1.3] - 2026-07-26
 
 ### Fixed

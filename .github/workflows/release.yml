@@ -71,8 +71,8 @@ jobs:
       - name: Verify kernel-prompt skill files present
         run: |
           for f in SKILL.md EXAMPLE.md REFORMULATIONS.md; do
-            if [ ! -f "skills/engineering/kernel-prompt/$f" ]; then
-              echo "❌ missing skills/engineering/kernel-prompt/$f"
+            if [ ! -f "skills/kernel-prompt/$f" ]; then
+              echo "missing skills/kernel-prompt/$f"
               exit 1
             fi
           done

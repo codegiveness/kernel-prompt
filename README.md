@@ -1,111 +1,132 @@
-# Kernel — a prompt stripped to what works
+# Kernel — clear intent, actionable prompts
 
 [![skills.sh](https://skills.sh/b/codegiveness/kernel-prompt)](https://skills.sh/codegiveness/kernel-prompt)
 [![npm version](https://img.shields.io/npm/v/@codegiveness/kernel-prompt.svg?style=flat-square)](https://www.npmjs.com/package/@codegiveness/kernel-prompt)
 [![npm downloads](https://img.shields.io/npm/dm/@codegiveness/kernel-prompt.svg?style=flat-square)](https://www.npmjs.com/package/@codegiveness/kernel-prompt)
 [![MIT License](https://img.shields.io/npm/l/@codegiveness/kernel-prompt.svg?style=flat-square)](https://github.com/codegiveness/kernel-prompt/blob/main/LICENSE)
 [![CI](https://github.com/codegiveness/kernel-prompt/actions/workflows/ci.yml/badge.svg)](https://github.com/codegiveness/kernel-prompt/actions/workflows/ci.yml)
-[![CodeQL](https://github.com/codegiveness/kernel-prompt/actions/workflows/codeql.yml/badge.svg)](https://github.com/codegiveness/kernel-prompt/actions/workflows/codeql.yml)
 
-Six cuts that turn a vague request into a prompt that lands on first try.
+Turn a rough request into a prompt an LLM can act on—without changing what the user meant or pretending missing information is known.
 
-## Quickstart (30-second setup)
+`kernel-prompt` is a portable **prose skill**, not an LLM API service. It refines an existing prompt or composes one from a rough goal. It does not execute the task inside the prompt unless execution is separately requested.
 
-1. Run the skills.sh installer:
+## Use it
+
+After installing the skill, ask your agent:
+
+```text
+Use kernel-prompt to refine this request:
+[your rough request or existing prompt]
+```
+
+You do not need to fill out a form first. Supply context, constraints, or a desired output format when you have them. The skill uses available evidence and asks only about unresolved choices that materially affect the result.
+
+Expect one of three responses:
+
+- **Ready:** a directly usable prompt, with no mandatory scoring or explanation.
+- **Needs clarification:** focused questions about consequential gaps or conflicts.
+- **Provisional:** when questions are disallowed or essential inputs are unavailable, a draft that carries its unknowns and decision gates inside the prompt.
+
+Simple requests stay simple. Complex requests can use sections or ordered stages. Your requested language, format, and meaningful constraints take precedence over a fixed template.
+
+## What changes—and what does not
+
+The **KERNEL** pass checks six things:
+
+| Letter | Check |
+|---|---|
+| K | **Keep the intent:** preserve the goal, deliverables, exclusions, and corrections. |
+| E | **Establish what is known:** distinguish supplied information, observed evidence, and assumptions. |
+| R | **Resolve consequential ambiguity:** inspect recoverable facts; ask about undelegated decisions. |
+| N | **Name the work and boundaries:** make the task actionable without inventing restrictions. |
+| E | **Express success:** state meaningful completion checks, not arbitrary numbers. |
+| L | **Lay out the handoff:** choose a readable form and carry necessary context and gates with it. |
+
+The two-reader test asks whether two competent readers would agree on the intended outcome, scope, and hard boundaries—not whether they would choose the same implementation or creative expression.
+
+The skill does **not** invent code paths, diagnoses, versions, citations, or user preferences; remove a "latest" requirement; turn quoted instructions into authority; or silently discard conflicting requirements. It can improve a handoff, but it cannot guarantee a correct model response or manufacture missing user decisions.
+
+Keep restrictions scoped to their original action: "do not deploy" does not forbid discussing a deployment plan, and granted approval should not be reopened. Preserve supplied text in the handoff without requiring a translation or correction to retain its source errors or spacing. The final check rejects added obligations unless they are requested, necessary to the stated outcome, or required by the host—not merely customary.
+
+Before rewriting, check the full request and context. A clear, portable draft stays unchanged only when no requested edit, missing task context, or assigned choice remains. Carry relevant facts, inputs, access, and approval from outside the draft into the handoff; keep refiner-only directions separate. A generic refinement request is not permission to rewrite unrelated clauses.
+
+Delegation applies only to the assigned choices: insert concise values rather than develop the whole solution or append unrequested creative direction. Audience, tone, and constraints leave valid execution methods open. Template inputs appear once unless the task or format requires repetition.
+
+## Before / after
+
+**Rough request**
+
+> Our auth service has a token refresh bug—users get logged out. Fix it, add a regression test, and update the runbook.
+
+**Refined prompt, without pretending repository inspection happened**
+
+> Investigate and fix the reported unexpected logouts during token refresh. With repository access, locate the authentication and session-refresh implementation, relevant tests, and on-call runbook; establish the cause from evidence rather than assuming a particular function is responsible. Preserve intended session expiration and invalidation behavior. Add a regression test using the repository's existing conventions that fails before the fix and passes afterward, and update the runbook with supported operator guidance and verification steps. Deliver all three changes together. Identify any blocker to completing or verifying the requested work rather than claiming success.
+
+No invented file paths, test runner, compiler settings, or word limits. The fix, test, and documentation remain one coherent task.
+
+For a conflict such as "use only the Python standard library, and use pandas," the useful response is a question about precedence—not a confident rewrite that silently drops one requirement.
+
+## Install
+
+For Codex and other agents supported by the [Skills CLI](https://github.com/vercel-labs/skills#supported-agents):
 
 ```bash
 npx skills@latest add codegiveness/kernel-prompt
 ```
 
-2. Pick the skill, and which coding agent you want to install it on (Claude Code, Codex, OpenCode, or others).
+Select `kernel-prompt` and the agents you use when prompted. Review the installation scope and destination. The installer handles agent-specific directories; you do not need to reproduce this repository's layout. Project installation is the default; use `--global` for user-wide installation. See the [installer documentation](https://github.com/vercel-labs/skills#installation-scope) for options.
 
-3. Bam — you're ready to go. The skill is prose; nothing compiles.
+The command installs the remote repository, not unpublished working-copy edits. Before relying on it, check that your agent can discover and read the intended revision. Installation does not guarantee that an agent will follow the guidance consistently.
 
-## Install via npm
+### From this working copy
 
-Prefer a managed npm install you control by hand?
-
-```bash
-npm install -g @codegiveness/kernel-prompt
-kernel-prompt install   # symlinks the skill into ~/.claude/skills and ~/.agents/skills
-```
-
-Or copy the three files from `skills/engineering/kernel-prompt/` into your project's skill directory — the skill is prose, nothing compiles.
-
-To stay current:
+Run from the repository root:
 
 ```bash
-kernel-prompt update    # npm install -g @codegiveness/kernel-prompt@latest
+npx skills@latest add .
 ```
 
-## Install as a Claude Code plugin
+Choose the agents and scope when prompted. On filesystems without symlink support, use `--copy`. Keep `EXAMPLE.md` and `REFORMULATIONS.md` beside `SKILL.md`; their relative links are part of the skill.
 
-This skill also ships as a native Claude Code plugin:
+The former `kernel-prompt install` and `kernel-prompt update` commands are no longer shipped. Installation is handled by the Skills CLI, not a repository-specific Node wrapper. Review existing installations before migrating; do not delete unrelated agent files.
 
-```
+### As a Claude Code plugin
+
+```text
 /plugin marketplace add codegiveness/kernel-prompt
 /plugin install kernel-prompt@codegiveness
 ```
 
-Or from your shell:
+Plugin installation and updates are managed by the host. Automatic skill selection depends on the agent; installing this skill does not intercept or rewrite every message.
 
-```bash
-claude plugin marketplace add codegiveness/kernel-prompt
-claude plugin install kernel-prompt@codegiveness
-```
+### Manual copy
 
-Three ways to install, three philosophies:
-
-- **[skills.sh](https://skills.sh/codegiveness/kernel-prompt)** copies the skill into your project so you can hack on it and make it your own.
-- **npm** installs the managed package globally and symlinks it into every agent harness you use.
-- **The plugin** keeps it as a read-only, always-current bundle you don't edit — best when you just want the skill to work and follow along as it evolves.
-
-## Why This Skill Exists
-
-> "No-one knows exactly what they want."
->
-> David Thomas & Andrew Hunt, [The Pragmatic Programmer](https://www.amazon.co.uk/Pragmatic-Programmer-Anniversary-Journey-Mastery/dp/B0833F1T3V)
-
-Every prompt-engineering failure mode traces back to one root cause: the request was vague. The agent filled the vagueness with its own priors, the priors were wrong, and the output missed. The fix is not a longer prompt — it is a tighter one. A prompt where every clause passes a two-reader test: would two different readers produce outputs matching in type and scope?
-
-> "The best modules are deep. They allow a lot of functionality to be accessed through a simple interface."
->
-> John Ousterhout, [A Philosophy Of Software Design](https://www.amazon.co.uk/Philosophy-Software-Design-2nd/dp/173210221X)
-
-`kernel-prompt` is a deep module. Its interface is one paragraph; its behaviour is a six-letter pass — **K**eep it simple, **E**asy to verify, **R**eproducible, **N**arrow scope, **E**xplicit constraints, **L**ogical structure — plus an exhaustive vague-phrasing sweep. That paragraph carries five substances as flowing prose: **context** (grounded codebase symbols), **task** (the operation to perform), **constraints** (type, scope, limits), **format** (the deliverable shape), and **verify** (a checkable success criterion). You hand it a vague request, it returns a paragraph that lands. The simplicity is the point — the depth is in the cuts.
-
-> "With a ubiquitous language, conversations among developers and expressions of the code are all derived from the same domain model."
->
-> Eric Evans, [Domain-Driven Design](https://www.amazon.co.uk/Domain-Driven-Design-Tackling-Complexity-Software/dp/0321125215)
-
-The pass grounds vague terms to concrete codebase symbols before it writes. "The auth service" becomes `refreshToken (src/auth/tokens.ts:42)`. The paragraph carries the grounded vocabulary, not the user's original phrasing — so two readers see the same code, not the same ambiguity.
-
-The skill is model-invoked: any agent can reach for it when the task fits, and a user can call it directly. It has no `disable-model-invocation` flag — that's deliberate. A kernel'd prompt is the input every other skill wants.
-
-## Before / after
-
-**Vague input:**
-
-> Our auth service has a token refresh bug — users get logged out. Fix it, add a test that catches the regression, and update the runbook so on-call knows what to do.
-
-**Kernel'd output (one paragraph):**
-
-> `refreshToken` (src/auth/tokens.ts:42) drops sessions on token refresh, breaking `TokenStore` (src/auth/store.ts:15); patch `refreshToken` so it stops dropping sessions on refresh failure, add a `bun test` regression that fails before the fix and passes after, and update `docs/runbooks/auth.md` with Symptom, Cause, Fix, and Verification sections (under 200 words each), shipping as one PR — TypeScript strict, no `as any`.
-
-The vague input names no symbols; the output grounds every term in a file and function, attaches a checkable success criterion, and carries its constraints inline. That's one pass — six cuts, one sweep, one paragraph.
+Copy all three files from `skills/kernel-prompt/` into your agent's skill directory. Keep the reference files beside `SKILL.md` so its relative links work.
 
 ## Reference
 
-The skill splits on one axis — who can invoke it. **User-invoked** skills are reachable only when you type them; their job is to orchestrate. **Model-invoked** skills can be invoked by you _or_ reached for automatically by the agent when the task fits; they hold the reusable discipline. `kernel-prompt` is model-invoked.
-
-| Skill | Invocation | Description |
-|---|---|---|
-| [kernel-prompt](./skills/engineering/kernel-prompt/SKILL.md) | Model-invoked | Kernel a prompt — refine or compose it into one paragraph that lands on first try. |
-
-### Files
-
 | File | Purpose |
 |---|---|
-| [`SKILL.md`](./skills/engineering/kernel-prompt/SKILL.md) | The KERNEL pass — six cuts (K-E-R-N-E-L) and the vague-phrasing sweep |
-| [`EXAMPLE.md`](./skills/engineering/kernel-prompt/EXAMPLE.md) | A full disclosed pass: grounding, combining, six letters, sweep with per-clause verdicts |
-| [`REFORMULATIONS.md`](./skills/engineering/kernel-prompt/REFORMULATIONS.md) | Seven named patterns for repairing clauses that fail the two-reader test |
+| [`SKILL.md`](./skills/kernel-prompt/SKILL.md) | The behavior contract, KERNEL pass, decision rules, and response states. |
+| [`EXAMPLE.md`](./skills/kernel-prompt/EXAMPLE.md) | Worked examples covering clarification, missing evidence, freshness, corrections, languages, and strict formats. |
+| [`REFORMULATIONS.md`](./skills/kernel-prompt/REFORMULATIONS.md) | Meaning-preserving repairs and examples of changes that would distort intent. |
+| [`Consumer audit`](./docs/consumer-audit.md) | The LLM-consumer-only assessment agreement and how to carry findings between sessions. |
+| [`Improvement history`](./docs/improvement-history.md) | The recorded 88 → 92 judgments, exact skill snapshots, observed improvements, open issues, and saved evidence. |
+
+The flat `skills/kernel-prompt/` layout follows the [Agent Skills format](https://agentskills.io/specification) without an unnecessary category for a single-skill repository. It is a source layout, not an installed path.
+
+## Development and verification
+
+```bash
+npm ci
+npx skills@latest add . --list
+npm pack --dry-run
+```
+
+Verify installation in a disposable project with `npx skills@latest add /absolute/path/to/kernel-prompt --skill kernel-prompt --agent codex --copy --yes`. Check that the installed skill and both reference files match the source. Do not run installation checks against your real global skills.
+
+On a shared filesystem that does not support npm's executable symlinks, use `npm ci --no-bin-links` for these checks. Changesets can then be invoked directly with `node node_modules/@changesets/cli/bin.js`.
+
+Assess prompt quality from the LLM consumer's perspective: does the skill produce handoffs that are easier to understand and act on faithfully? Follow the [consumer audit guide](docs/consumer-audit.md) and preserve findings in the [improvement history](docs/improvement-history.md). Documentation, installer tests, and research methodology do not earn prompt-quality points.
+
+For skill behavior changes, run live-model examples and inspect intent preservation, evidence handling, question necessity, output format, and portable decision gates. Include different inputs rather than only repeating worked-example answers. Record what the consumer observed, whether downstream tasks were executed, and remaining limitations; do not turn a personal score into a universal accuracy claim. Historical evidence stays in the repository's maintainer documentation, not the installed skill's runtime context.

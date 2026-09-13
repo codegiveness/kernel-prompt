@@ -7,6 +7,7 @@
 - Redesign the skill as a self-contained adaptive prompt editor, with a focused trigger, lightweight KERNEL considerations, and task-specific decision and completion boundaries.
 - Consolidate the README around a balanced KERNEL philosophy, the guiding article, ordinary chat use, and optional Git-based installation.
 - Replace `CLAUDE.md` and the agent-guidance link/pointer arrangement with a standalone, harness-neutral `AGENTS.md`.
+- Retire npm distribution by deprecating all five published versions (0.1.0–0.1.3 and 0.2.0) with a migration notice while preserving downloads and version tags. Document migration to direct skill use or Git-based installation and the uncertainty around external npm usage.
 
 
 ### Fixed

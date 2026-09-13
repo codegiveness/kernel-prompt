@@ -42,4 +42,16 @@ Choose the harness and installation scope when prompted. Add `--copy` if symlink
 
 You can also copy `skills/kernel-prompt/` into your harness's skill location. Only `SKILL.md` is needed. The skill has no application runtime, build step, or project dependencies; the optional installer is external tooling.
 
+## Retired npm distribution
+
+The [npm package](https://www.npmjs.com/package/@codegiveness/kernel-prompt) is retired. Use the current [SKILL.md](skills/kernel-prompt/SKILL.md) directly or follow [Optional installation](#optional-installation); neither route requires this npm package.
+
+All published versions (0.1.0, 0.1.1, 0.1.2, 0.1.3, and 0.2.0) are deprecated with a migration notice, not unpublished. They remain downloadable and installable, and existing version pins remain usable. They contain historical skill content, not the current Git revision.
+
+To migrate, replace only your existing Kernel Prompt skill with `skills/kernel-prompt/SKILL.md`, preserving local edits and unrelated instructions. If you used the old npm CLI, switch to direct use or the Skills CLI instructions above; do not rely on the retired npm install/update commands for current content. Deprecation does not remove installed files or update copied instructions.
+
+Retirement is a distribution decision, not a claim that nobody uses the package. The [npm downloads API](https://api.npmjs.org/downloads/point/2026-08-14:2026-09-12/@codegiveness%2Fkernel-prompt) reported 36 downloads for August 14–September 12, 2026. Downloads do not identify unique users or active installations, and public dependency/code searches cannot exclude direct installs or private consumers.
+
+The npm manifests and publishing workflow have been removed from this checkout. No replacement npm release is planned; historical packages and release history remain available.
+
 [MIT license](LICENSE)

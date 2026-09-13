@@ -1,6 +1,28 @@
-# @codegiveness/kernel-prompt
+# Kernel Prompt
 
 ## Unreleased
+
+### Changed
+
+- Redesign the skill as a self-contained adaptive prompt editor, with a focused trigger, lightweight KERNEL considerations, and task-specific decision and completion boundaries.
+- Consolidate the README around a balanced KERNEL philosophy, the guiding article, ordinary chat use, and optional Git-based installation.
+- Replace `CLAUDE.md` and the agent-guidance link/pointer arrangement with a standalone, harness-neutral `AGENTS.md`.
+
+
+### Fixed
+
+- Clarify the skill's discovery description and selection boundary: document or guidance reviews do not become prompt-design requests merely because they discuss AI instructions or ask for wording suggestions. Preserve prompt improvement, composition, design feedback, and AI handoffs.
+
+### Removed
+
+- Remove the `.agents/` architecture decision record and its incoming documentation links.
+- Remove Changesets configuration, scripts, and dependencies.
+- Remove Claude Code plugin packaging, installation instructions, and plugin-specific CI and release checks.
+- Remove the separate `.out-of-scope/` checklist and its incoming documentation link.
+- Remove `docs/`, including old audit artifacts, audit guidance, and improvement history.
+- Remove npm package manifests, `node_modules/`, and the npm publishing workflow; distribute the skill through Git and Markdown files.
+- Remove `EXAMPLE.md` and `REFORMULATIONS.md`; keep one short delegation contrast inside `SKILL.md`.
+- Remove `CONTEXT.md`; keep the project explanation in the README and behavior in `SKILL.md`.
 
 ## [0.2.0] - 2026-09-13
 

@@ -16,7 +16,7 @@ concurrency:
 
 jobs:
   validate:
-    name: Validate distribution and skill discovery
+    name: Validate skill discovery and installation
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -28,9 +28,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "22"
-
-      - name: Install dependencies
-        run: npm ci
 
       - name: Discover skill with Skills CLI
         run: npx --yes skills@latest add . --list
@@ -46,80 +43,4 @@ jobs:
           mkdir -p "$HOME" "$TEMP/project"
           cd "$TEMP/project"
           npx --yes skills@latest add "$SOURCE" --skill kernel-prompt --agent codex --copy --yes
-          for f in SKILL.md EXAMPLE.md REFORMULATIONS.md; do
-            cmp "$SOURCE/skills/kernel-prompt/$f" ".agents/skills/kernel-prompt/$f"
-          done
-
-      - name: Verify kernel-prompt skill files are present
-        run: |
-          for f in SKILL.md EXAMPLE.md REFORMULATIONS.md; do
-            if [ ! -f "skills/kernel-prompt/$f" ]; then
-              echo "missing skills/kernel-prompt/$f"
-              exit 1
-            fi
-            echo "skills/kernel-prompt/$f present"
-          done
-
-      - name: Verify naming consistency
-        run: |
-          PKG_NAME=$(node -p "require('./package.json').name")
-          if [ "$PKG_NAME" != "@codegiveness/kernel-prompt" ]; then
-            echo "❌ package.json name is $PKG_NAME, expected @codegiveness/kernel-prompt"
-            exit 1
-          fi
-          echo "✅ package.json name is @codegiveness/kernel-prompt"
-
-          PLUGIN_NAME=$(node -p "require('./.claude-plugin/plugin.json').name")
-          if [ "$PLUGIN_NAME" != "kernel-prompt" ]; then
-            echo "❌ plugin.json name is $PLUGIN_NAME, expected kernel-prompt"
-            exit 1
-          fi
-          echo "✅ plugin.json name is kernel-prompt"
-
-          PLUGIN_SKILLS=$(node -p "require('./.claude-plugin/plugin.json').skills.includes('./skills/kernel-prompt')")
-          if [ "$PLUGIN_SKILLS" != "true" ]; then
-            echo "plugin.json skills does not include ./skills/kernel-prompt, got: $PLUGIN_SKILLS"
-            exit 1
-          fi
-          echo "plugin.json skills includes ./skills/kernel-prompt"
-
-          MARKETPLACE_NAME=$(node -p "require('./.claude-plugin/marketplace.json').plugins[0].name")
-          if [ "$MARKETPLACE_NAME" != "kernel-prompt" ]; then
-            echo "❌ marketplace.json first plugin name is $MARKETPLACE_NAME, expected kernel-prompt"
-            exit 1
-          fi
-          echo "✅ marketplace.json first plugin name is kernel-prompt"
-
-          SKILL_FM_NAME=$(grep -E "^name:" skills/kernel-prompt/SKILL.md | head -1 | sed 's/^name:[[:space:]]*//')
-          if [ "$SKILL_FM_NAME" != "kernel-prompt" ]; then
-            echo "❌ SKILL.md frontmatter name is '$SKILL_FM_NAME', expected kernel-prompt"
-            exit 1
-          fi
-          echo "✅ SKILL.md frontmatter name is kernel-prompt"
-
-          CHANGESET_REPO=$(node -p "require('./.changeset/config.json').changelog[1].repo")
-          if [ "$CHANGESET_REPO" != "codegiveness/kernel-prompt" ]; then
-            echo "❌ .changeset/config.json changelog repo is $CHANGESET_REPO, expected codegiveness/kernel-prompt"
-            exit 1
-          fi
-          echo "✅ .changeset/config.json changelog repo is codegiveness/kernel-prompt"
-
-
-      - name: Verify distribution versions agree
-        run: |
-          PV=$(node -p "require('./.claude-plugin/plugin.json').version")
-          PJ=$(node -p "require('./package.json').version")
-          LOCK_VERSION=$(node -p "require('./package-lock.json').version")
-          LOCK_ROOT_VERSION=$(node -p "require('./package-lock.json').packages[''].version")
-          if [ "$LOCK_VERSION" != "$PJ" ] || [ "$LOCK_ROOT_VERSION" != "$PJ" ]; then
-            echo "lockfile versions ($LOCK_VERSION, $LOCK_ROOT_VERSION) differ from package version ($PJ)"
-            exit 1
-          fi
-          if [ "$PV" != "$PJ" ]; then
-            echo "❌ plugin.json version ($PV) != package.json version ($PJ)"
-            exit 1
-          fi
-          echo "✅ versions match: $PV"
-
-      - name: npm publish --dry-run
-        run: npm publish --dry-run
+          cmp "$SOURCE/skills/kernel-prompt/SKILL.md" ".agents/skills/kernel-prompt/SKILL.md"

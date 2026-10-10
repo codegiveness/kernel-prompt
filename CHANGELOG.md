@@ -1,5 +1,11 @@
 # Kernel Prompt
 
+## [0.4.3] - 2026-10-10
+
+### Changed
+
+- Show the social preview image as a banner above the README title, loaded from its absolute GitHub URL so it also renders on npm.
+
 ## [0.4.2] - 2026-10-10
 
 ### Changed

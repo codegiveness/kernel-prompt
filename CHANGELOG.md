@@ -1,5 +1,18 @@
 # Kernel Prompt
 
+## [0.4.0] - 2026-10-10
+
+### Changed
+
+- Treat the text written with the invocation as the prompt to improve, even when it reads as a task. Files, skills, URLs, and repositories it mentions are read as context and referenced in the prompt, never rewritten or summarized as the deliverable; a file or quoted text is transformed only when the user says it is the prompt.
+- Add a "Never do the task" rule: the deliverable is an instruction to an agent, not the agent's output, with a pre-reply check that discards any executed result. Create or edit no files unless asked to save the prompt.
+- Always ask one round of 2–5 questions before drafting, each led by a recommended answer and anchored in the context read, unless the user says "no questions" or "just write it". Ask further rounds only for decisions the previous answers opened. Replaces the conditional questioning of 0.3.0.
+- Rewrite KERNEL as guidance for writing the prompt: undecided choices are delegated explicitly or marked open, never guessed, and the handoff is written for a capable agent that lacks the conversation.
+- Deliver the prompt alone as plain text, ready to send, with no intro, analysis, critique, or change log, followed by at most 3 unconfirmed assumptions.
+- Narrow the description to invoking the skill or asking to compose or improve an LLM prompt or an instruction for another AI.
+- Add a short harness-neutral example contrasting delivering an improved artifact (wrong) with asking questions first and then writing a prompt (right), using placeholder paths and references.
+- Update the README to describe the always-ask round, the delivery format, and the context-only treatment of referenced files.
+
 ## [0.3.0] - 2026-10-10
 
 ### Changed

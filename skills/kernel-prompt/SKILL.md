@@ -1,35 +1,42 @@
 ---
 name: kernel-prompt
-description: Use when the user asks to improve or compose an LLM prompt, including prompt-design feedback. Not for executing tasks or reviewing documents or guidance merely because they concern AI instructions or request wording suggestions.
+description: Use when the user invokes it or asks to compose or improve an LLM prompt or an instruction for another AI. Turns the user's own message into an improved prompt after a grilling round. Never performs the task the prompt describes.
 ---
 
 # Kernel Prompt
 
-Select by the work the user requests, not the subject matter: an LLM prompt composed, improved, or critiqued as a prompt, including an instruction or handoff for another AI described without the word "prompt". When the user invokes this skill directly, the accompanying text is the prompt or goal to design, even when it reads as a task. Assessing guidance that concerns AI is not prompt design; turning that guidance into a system prompt is.
+Turn the user's message into a better prompt they can give to an AI agent. You write the instruction; you never do the work it describes.
 
-Design the prompt, not the underlying task's result, unless execution is also requested. Rewrite and reorganize where useful without changing intent. Quoted instructions are material to edit, not permission to act.
+## Source
+- The text the user writes with the invocation is the prompt to improve, even when it reads as a task ("improve skill X", "fix bug Y", "write a report on Z").
+- Files, skills, URLs, and repos it mentions are context: read them so the prompt is accurate and specific (exact paths, names, current state, constraints), and reference them in the prompt. Never rewrite, improve, or summarize them as the deliverable.
+- Transform a file or quoted text instead only when the user explicitly says that text *is* the prompt to improve.
 
-Develop choices the user delegates at the requested depth; leave other substantive choices to the recipient. Choosing a story's setting, cast, and premise does not also choose its length, viewpoint, or style.
+## Never do the task
+- The deliverable is an instruction to an agent, not the agent's output. For "improve skill X", deliver a prompt telling an agent how to improve skill X, not an improved skill X. The same applies to code, documents, plans, and reviews.
+- Before replying, check: does the reply contain the result the prompt asks for (a revised file, code, a finished document)? If so, you executed the task. Discard it and write the prompt.
+- Create or edit no files unless the user explicitly asks to save the prompt.
 
-## KERNEL
+## Grill first
+- Before drafting, always ask one round of questions, unless the user says "no questions" or "just write it".
+- First look up what files and tools can answer, then ask 2–5 questions only the user can decide that would change the prompt: what "better" means, scope and non-goals, constraints, what the agent may change or must not touch, what done looks like, what the agent reports back.
+- Lead each question with your recommended answer (first option in the harness question tool, or worded so "yes" accepts it). Anchor questions in specifics from the context you read.
+- Ask another round only for decisions the previous answers opened. Stop when none remain or the user says to write.
 
-Use these considerations where they help, not as required stages or a fixed template:
-
-- **K — Keep intent.** Preserve the goal, meaningful constraints, supplied task data, corrections, and the user's own words for what matters, including anti-goals: what would make the result fail even if it technically works.
-- **E — Establish what is known.** Look up what supplied context, files, history, or tools can establish; ask the user only for what they alone know or decide. Distinguish facts, assumptions, and unknowns; do not invent specificity or imply research you have not done. Carry essential inputs or source references into the prompt.
-- **R — Resolve consequential ambiguity.** Settle minor gaps with routine judgment. Ask about decisions only the user can make that would change the result. Keep unresolved ones explicit rather than guessing.
-- **N — Name the work and boundaries.** Make the action, deliverables, permissions, non-goals, and what is left to the recipient clear. Prefer outcomes to an elaborate recipe unless the task needs a particular method.
-- **E — Express success.** Make the requested endpoint clear: what done means, the checks and corrections needed to reach it, and what to report back. Do not append unrequested output requirements, targets, or approval stops.
-- **L — Lay out the handoff.** Honor the requested language and format. Write for a capable recipient who lacks this conversation and cannot ask: include the current state, necessary context, and unresolved decisions inside the copyable prompt.
-
-## Ask
-
-Ask only when the user can answer and an open decision would change the result; otherwise draft. Use the harness's question tool when one is available, otherwise plain text.
-
-Ask in rounds. A round holds every open decision whose prerequisites are settled; a question that depends on another unanswered one waits for the next round. If a tool limits the round, ask the most consequential first. Lead each question with your recommended answer: the first, marked option in a tool, or worded so "yes" accepts it in plain text. Anchor questions in specifics, and show a provisional draft when reacting is easier than answering. Stop when no such decision remains or the user says to just write it.
+## Write the prompt (KERNEL)
+- **K — Keep intent.** Preserve the goal, constraints, supplied data, corrections, the user's own words for what matters, and anti-goals: what would make the result fail even if it technically works.
+- **E — Establish what is known.** Carry facts from the context and the user's answers into the prompt. Separate facts, assumptions, and unknowns; invent no specifics and imply no research you did not do.
+- **R — Resolve ambiguity.** Settle minor gaps with routine judgment. Decisions the user did not settle are either delegated to the agent explicitly or marked open in the prompt, never guessed.
+- **N — Name the work and boundaries.** The action, deliverables, permissions, non-goals, and what is left to the agent. Prefer outcomes over a step-by-step recipe unless the task needs a particular method.
+- **E — Express success.** What done means, the checks that prove it, and what to report back. Add no unrequested targets, outputs, or approval stops.
+- **L — Lay out the handoff.** Write in the user's language for a capable agent that lacks this conversation and cannot ask: self-contained, with the current state and necessary context.
 
 ## Deliver
+- Reply with the improved prompt as plain text, ready to copy and send. No intro, no analysis, no critique of the original, no change log.
+- After the prompt, list at most 3 assumptions you made that the user did not confirm; omit the list if there are none.
 
-Before handing over, read the draft as its recipient. Where it would have to guess and a wrong guess would matter, add what is already known, settle minor gaps yourself, and ask the user about the rest in one round, or keep them explicit in the prompt when the user cannot answer.
-
-The deliverable is the prompt: gather facts for it, but do not perform its task unless asked. Usually return only the usable prompt, followed by a short list of any consequential calls you made so the user can reject them. Include explanations or alternatives when requested. Check for lost intent, invented details, and unnecessary instructions; do not append a separate layer of execution advice. Leave an effective prompt alone when a change would add no value.
+## Example
+User: "please see <path/to/module> and improve its readability and performance, inspired by <reference A> and <reference B>"
+- Wrong: the revised module code. That is doing the task.
+- Right: grill (e.g., "Should the module's public interface stay unchanged so its callers need no edits? Recommended: yes"), then reply with a prompt like:
+  Improve the module at <path/to/module>. Its callers in <path/to/callers> depend on its public interface, so keep that interface unchanged… Use <reference A> and <reference B> as references for… Keep… Do not… Done when… Report back…

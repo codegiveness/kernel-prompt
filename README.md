@@ -1,8 +1,8 @@
 # Kernel Prompt
 
-`kernel-prompt` is a small, harness-neutral prose skill for improving an existing prompt or composing one from a goal. It rewrites and reorganizes where useful while preserving intent. It designs the prompt, not the underlying task's result.
+`kernel-prompt` is a small, harness-neutral prose skill that turns your message—a draft prompt or a task you want an AI agent to do—into an improved prompt for that agent. It asks one round of questions first, then writes the prompt while preserving your intent. It writes the instruction, never the task's result.
 
-Select it for requested prompt design, including prompt-design feedback or instructions to hand off to another AI. Reviewing documents or collaboration guidance—even with wording suggestions—is not by itself a match. Asking to turn that guidance into a system prompt is.
+Select it when you invoke it by name or ask to compose or improve an LLM prompt or an instruction for another AI. Reviewing documents or collaboration guidance—even with wording suggestions—is not by itself a match. Asking to turn that guidance into a system prompt is.
 
 ## Use it
 
@@ -13,24 +13,26 @@ Use kernel-prompt to improve this request:
 [your goal or draft, with relevant context and constraints]
 ```
 
-Expect a usable prompt, a short round of questions when a decision only you can make matters, or a draft with explicit unknowns when answers are unavailable. Invoking the skill with text that reads as a task—"fix the failing login test"—yields a prompt for that task, not the fix. Questions use the harness's question tool when one exists, each led by a recommended answer. Ask for explanations or alternatives when wanted.
+Expect one round of two to five questions before any draft, each led by a recommended answer and using the harness's question tool when one exists. Say "no questions" or "just write it" to skip them. A further round comes only for decisions your answers opened. The reply is the prompt alone, as plain text ready to send, followed by at most three assumptions you did not confirm; decisions you left unsettled are delegated to the agent or marked open in the prompt, never guessed.
+
+Invoking the skill with text that reads as a task—"fix the failing login test"—yields a prompt for that task, not the fix. Files, skills, URLs, and repositories you mention are read as context for the prompt, not rewritten as the deliverable, unless you say that text is the prompt to improve. No files are created or edited unless you ask to save the prompt.
 
 ## The idea
 
-A kernel makes the intended outcome, relevant context, boundaries, and completion conditions clear. Add detail where it helps the task; leave unassigned execution choices open. Facts are looked up, not asked; only decisions the user alone can make become questions. Before handing over, the draft is read as its recipient would read it—capable, without the conversation, unable to ask.
+A kernel makes the intended outcome, relevant context, boundaries, and completion conditions clear. Add detail where it helps the task; leave unassigned execution choices open. Facts are looked up, not asked; only decisions the user alone can make become questions. The prompt is written for its recipient—a capable agent without the conversation, unable to ask—and checked before replying so it holds the instruction, not the task's result.
 
 **KERNEL** is a mnemonic, not a mandatory sequence or template:
 
 - **K**eep intent.
 - **E**stablish what is known.
-- **R**esolve consequential ambiguity.
+- **R**esolve ambiguity.
 - **N**ame the work and boundaries.
 - **E**xpress success.
 - **L**ay out the handoff.
 
 The guiding reference is OpenAI's [Rethinking skills and prompts for GPT-6 Astra](https://developers.openai.com/blog/rethinking-skills-and-prompts-for-gpt-6-astra). Revisit accumulated instructions, avoid unnecessary recipes, and adapt guidance to the task and model. The article's model-specific advice is not a universal rule; clearer prompts do not guarantee correct answers.
 
-The questioning adapts Matt Pocock's [grilling](https://github.com/mattpocock/skills/tree/main/skills/productivity/grilling) (rounds of independent decisions with recommended answers; facts versus decisions) and the recipient check adapts the builder check in obra's [brainstorming](https://github.com/obra/superpowers/tree/main/skills/brainstorming), scaled down so a clear request gets no questions.
+The questioning adapts Matt Pocock's [grilling](https://github.com/mattpocock/skills/tree/main/skills/productivity/grilling) (rounds of independent decisions with recommended answers; facts versus decisions) and the recipient framing adapts the builder check in obra's [brainstorming](https://github.com/obra/superpowers/tree/main/skills/brainstorming), scaled down to one round before drafting unless you skip it.
 
 ## Optional installation
 

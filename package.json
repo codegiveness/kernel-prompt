@@ -1,6 +1,6 @@
 {
   "name": "@codegiveness/kernel-prompt",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Agent skill that turns rough requests and drafts into clear prompts for other agents, asking only the decisions that change the result.",
   "license": "MIT",
   "author": "codegiveness",

@@ -9,3 +9,11 @@ For behavior changes, exercise representative prompt requests and inspect or con
 Keep installation checks in a disposable project and HOME, away from real installed skills. Within the agreed task, run local disposable checks and repair failures caused by the change without repeated approval.
 
 Keep the README and unreleased changelog consistent with behavior and distribution changes. Every update follows [RELEASING.md](RELEASING.md). npm releases are only ever staged with `npm stage publish`, never published directly; the maintainer approves them with two-factor authentication. Do not push, tag, merge, release, or stage a publish without the maintainer's go-ahead for that release.
+
+## GitHub and presentation
+
+In the maintainer's environment, `gh` is authenticated as `codegiveness`; use it for issues, pull requests, checks, merges, and repository settings within the agreed task, under the go-ahead rule above. The "Protect main" ruleset admits changes to `main` only by squash-merged pull request after the `Validate skill discovery and installation` check passes, and blocks force pushes and deletion with no bypass. If Git reports dubious ownership on the shared folder, pass `-c safe.directory=<repo path>` per command instead of changing global configuration.
+
+The README's first paragraph, the GitHub About description and topics, and the `package.json` `description` and `keywords` state one pitch; change them together. The README badge row shows only live facts about this repository; add no badge for a check that does not exist here. `.github/social-preview.png` (1280×640) is the uploaded social preview. GitHub has no API for it, so the maintainer re-uploads it under Settings → General → Social preview.
+
+skills.sh and SkillsMP index the repository automatically. Entries were proposed to heilcheng/awesome-agent-skills#569 and promptslab/Awesome-Prompt-Engineering#230, and the skill was shared in the [Agent Skills Show and tell discussion](https://github.com/agentskills/agentskills/discussions/597). VoltAgent/awesome-agent-skills accepts only skills with established community use. travisvn/awesome-claude-skills requires 10 stars and rejects AI-assisted pull requests, so only the maintainer submits there.

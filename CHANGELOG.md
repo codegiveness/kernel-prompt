@@ -1,5 +1,13 @@
 # Kernel Prompt
 
+## [0.4.2] - 2026-10-10
+
+### Changed
+
+- Add a README badge row: CI status, npm version, npm monthly downloads, license, and Agent Skills compatibility.
+- Replace the generic npm keywords `agent`, `skill`, and `kernel` with the repository topics (`agent-skills`, `agent-skill`, `skill-md`, `prompt-engineering`, `prompt-optimization`, `prompt-generator`, `meta-prompting`, `system-prompt`, `prompts`, `llm`, `ai-agents`), keeping `prompt`.
+- Record GitHub access, the `main` branch ruleset, presentation metadata, and listing status for agents in `AGENTS.md`, and version the repository's social preview image at `.github/social-preview.png`.
+
 ## [0.4.1] - 2026-10-10
 
 ### Changed

@@ -1,3 +1,5 @@
+<p align="center"><img src="https://raw.githubusercontent.com/codegiveness/kernel-prompt/main/.github/social-preview.png" alt="Kernel Prompt: turn rough requests into clear prompts for other AI agents" width="720"></p>
+
 # Kernel Prompt
 
 [![CI](https://github.com/codegiveness/kernel-prompt/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/codegiveness/kernel-prompt/actions/workflows/ci.yml) [![npm](https://img.shields.io/npm/v/@codegiveness/kernel-prompt?logo=npm)](https://www.npmjs.com/package/@codegiveness/kernel-prompt) [![npm downloads](https://img.shields.io/npm/dm/@codegiveness/kernel-prompt?logo=npm)](https://www.npmjs.com/package/@codegiveness/kernel-prompt) [![License](https://img.shields.io/github/license/codegiveness/kernel-prompt)](LICENSE) [![Agent Skills: compatible](https://img.shields.io/badge/Agent%20Skills-compatible-6f42c1)](https://agentskills.io/specification)

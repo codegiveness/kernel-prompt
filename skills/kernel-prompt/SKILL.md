@@ -32,7 +32,7 @@ Turn the user's message into a better prompt they can give to an AI agent. You w
 - **L — Lay out the handoff.** Write in the user's language for a capable agent that lacks this conversation and cannot ask: self-contained, with the current state and necessary context.
 
 ## Deliver
-- Reply with the improved prompt as plain text, ready to copy and send. No intro, no analysis, no critique of the original, no change log.
+- Reply with the improved prompt inside a fenced code block, ready to copy and send; if the prompt itself contains triple backticks, use a four-backtick fence. No intro, no analysis, no critique of the original, no change log.
 - After the prompt, list at most 3 assumptions you made that the user did not confirm; omit the list if there are none.
 
 ## Example

@@ -1,5 +1,13 @@
 # Kernel Prompt
 
+## [0.4.1] - 2026-10-10
+
+### Changed
+
+- Deliver the improved prompt inside a fenced code block, ready to copy and send, instead of as plain text; a prompt that itself contains triple backticks is wrapped in a four-backtick fence. Update the README's description of the delivery format.
+- Document the release workflow in `RELEASING.md` (issue, worktree branch, pull request, squash-merge, tag, GitHub release, and staged npm publish approved by the maintainer with two-factor authentication) and link it from the README. `AGENTS.md` now requires every update to follow it and npm releases to be staged, never published directly.
+- Add a pull request template and issue forms for bug reports and change requests.
+
 ## [0.4.0] - 2026-10-10
 
 ### Changed

@@ -8,4 +8,4 @@ For behavior changes, exercise representative prompt requests and inspect or con
 
 Keep installation checks in a disposable project and HOME, away from real installed skills. Within the agreed task, run local disposable checks and repair failures caused by the change without repeated approval.
 
-Keep the README and unreleased changelog consistent with behavior and distribution changes. Do not publish, tag, or push without authorization.
+Keep the README and unreleased changelog consistent with behavior and distribution changes. Every update follows [RELEASING.md](RELEASING.md). npm releases are only ever staged with `npm stage publish`, never published directly; the maintainer approves them with two-factor authentication. Do not push, tag, merge, release, or stage a publish without the maintainer's go-ahead for that release.

@@ -1,0 +1,25 @@
+name: Change request
+description: Propose a change to the skill's behavior, documentation, or distribution.
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What the current behavior or documentation gets wrong or lacks, with an example request if it helps.
+    validations:
+      required: true
+  - type: textarea
+    id: change
+    attributes:
+      label: Proposed change
+      description: The change you want. Keep it harness-neutral.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance
+      description: How to tell the change is done, such as a representative request and the expected prompt.
+    validations:
+      required: true

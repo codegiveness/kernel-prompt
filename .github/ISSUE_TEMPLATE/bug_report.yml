@@ -1,0 +1,37 @@
+name: Bug report
+description: The skill or its distribution behaves differently from what SKILL.md or the README describes.
+labels: [bug]
+body:
+  - type: textarea
+    id: request
+    attributes:
+      label: Request
+      description: What you asked the skill, with any context it was given.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected
+      description: What should have happened, citing SKILL.md or the README where possible.
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual
+      description: What happened instead. Paste the relevant output.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: Skill version or commit, and how it was installed (Skills CLI, npm, manual copy, chat paste).
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Harness and model
+      description: Where the skill ran, if relevant.

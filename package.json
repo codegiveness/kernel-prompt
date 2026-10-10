@@ -13,12 +13,18 @@
     "url": "https://github.com/codegiveness/kernel-prompt/issues"
   },
   "keywords": [
-    "prompt-engineering",
-    "prompt",
-    "skill",
     "agent-skills",
-    "agent",
-    "kernel"
+    "agent-skill",
+    "skill-md",
+    "prompt-engineering",
+    "prompt-optimization",
+    "prompt-generator",
+    "meta-prompting",
+    "system-prompt",
+    "prompt",
+    "prompts",
+    "llm",
+    "ai-agents"
   ],
   "publishConfig": {
     "access": "public",

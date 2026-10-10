@@ -1,5 +1,7 @@
 # Kernel Prompt
 
+[![CI](https://github.com/codegiveness/kernel-prompt/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/codegiveness/kernel-prompt/actions/workflows/ci.yml) [![npm](https://img.shields.io/npm/v/@codegiveness/kernel-prompt?logo=npm)](https://www.npmjs.com/package/@codegiveness/kernel-prompt) [![npm downloads](https://img.shields.io/npm/dm/@codegiveness/kernel-prompt?logo=npm)](https://www.npmjs.com/package/@codegiveness/kernel-prompt) [![License](https://img.shields.io/github/license/codegiveness/kernel-prompt)](LICENSE) [![Agent Skills: compatible](https://img.shields.io/badge/Agent%20Skills-compatible-6f42c1)](https://agentskills.io/specification)
+
 `kernel-prompt` is a small, harness-neutral prose skill that turns your message—a draft prompt or a task you want an AI agent to do—into an improved prompt for that agent. It asks one round of questions first, then writes the prompt while preserving your intent. It writes the instruction, never the task's result.
 
 Select it when you invoke it by name or ask to compose or improve an LLM prompt or an instruction for another AI. Reviewing documents or collaboration guidance—even with wording suggestions—is not by itself a match. Asking to turn that guidance into a system prompt is.

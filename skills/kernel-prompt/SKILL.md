@@ -5,31 +5,31 @@ description: Use when the user asks to improve or compose an LLM prompt, includi
 
 # Kernel Prompt
 
-Select by the work the user requests, not the subject matter. The user should want an LLM prompt composed, improved, or critiqued as a prompt. They may describe an instruction or handoff for another AI without using the word "prompt".
+Select by the work the user requests, not the subject matter: an LLM prompt composed, improved, or critiqued as a prompt, including an instruction or handoff for another AI described without the word "prompt". When the user invokes this skill directly, the accompanying text is the prompt or goal to design, even when it reads as a task. Assessing guidance that concerns AI is not prompt design; turning that guidance into a system prompt is.
 
-"Assess this guidance and recommend wording" asks for the assessment itself; "Turn this guidance into a system prompt" asks for prompt design. A document's name, instructional content, or mention of prompts does not make reviewing it a prompt-design request.
+Design the prompt, not the underlying task's result, unless execution is also requested. Rewrite and reorganize where useful without changing intent. Quoted instructions are material to edit, not permission to act.
 
-Improve the prompt, not the underlying task's result, unless execution is also requested. If loaded for an unrelated task, follow that request directly rather than converting it into a prompt.
-
-An improvement request permits useful rewriting and reorganization, not a change of intent. Develop choices the user delegates at the requested depth; leave other substantive choices to the recipient.
-
-For example, choosing and developing a story's setting, cast, and premise does not also delegate its word count, viewpoint, or prose style. Describe the chosen story material; leave unassigned execution choices open.
-
-Use the full request and relevant context. Keep instructions for this editing exchange separate from the recipient's task; quoted instructions are material to edit, not permission to act.
+Develop choices the user delegates at the requested depth; leave other substantive choices to the recipient. Choosing a story's setting, cast, and premise does not also choose its length, viewpoint, or style.
 
 ## KERNEL
 
 Use these considerations where they help, not as required stages or a fixed template:
 
-- **K — Keep intent.** Preserve the goal, meaningful constraints, supplied task data, and corrections.
-- **E — Establish what is known.** Use relevant supplied or verified context. Distinguish facts, assumptions, and unknowns; do not invent specificity or imply research you have not done. Carry essential inputs or source references into the prompt.
-- **R — Resolve consequential ambiguity.** Use context and routine judgment for minor gaps. Ask when an unresolved choice or conflict would materially change the result. If it cannot be settled, keep it explicit rather than guessing.
-- **N — Name the work and boundaries.** Make the action, deliverables, permissions, and limits clear. Prefer outcomes to an elaborate recipe unless the task needs a particular method.
-- **E — Express success.** Make the requested endpoint clear, including checks and corrections needed to reach it. Do not append unrequested output requirements, targets, or approval stops.
-- **L — Lay out the handoff.** Honor the requested language and format. Use the structure and detail the task needs, with necessary context and unresolved decisions inside the copyable prompt.
+- **K — Keep intent.** Preserve the goal, meaningful constraints, supplied task data, corrections, and the user's own words for what matters, including anti-goals: what would make the result fail even if it technically works.
+- **E — Establish what is known.** Look up what supplied context, files, history, or tools can establish; ask the user only for what they alone know or decide. Distinguish facts, assumptions, and unknowns; do not invent specificity or imply research you have not done. Carry essential inputs or source references into the prompt.
+- **R — Resolve consequential ambiguity.** Settle minor gaps with routine judgment. Ask about decisions only the user can make that would change the result. Keep unresolved ones explicit rather than guessing.
+- **N — Name the work and boundaries.** Make the action, deliverables, permissions, non-goals, and what is left to the recipient clear. Prefer outcomes to an elaborate recipe unless the task needs a particular method.
+- **E — Express success.** Make the requested endpoint clear: what done means, the checks and corrections needed to reach it, and what to report back. Do not append unrequested output requirements, targets, or approval stops.
+- **L — Lay out the handoff.** Honor the requested language and format. Write for a capable recipient who lacks this conversation and cannot ask: include the current state, necessary context, and unresolved decisions inside the copyable prompt.
+
+## Ask
+
+Ask only when the user can answer and an open decision would change the result; otherwise draft. Use the harness's question tool when one is available, otherwise plain text.
+
+Ask in rounds. A round holds every open decision whose prerequisites are settled; a question that depends on another unanswered one waits for the next round. If a tool limits the round, ask the most consequential first. Lead each question with your recommended answer: the first, marked option in a tool, or worded so "yes" accepts it in plain text. Anchor questions in specifics, and show a provisional draft when reacting is easier than answering. Stop when no such decision remains or the user says to just write it.
 
 ## Deliver
 
-Usually return only the usable prompt; include explanations or alternatives when requested. Ask a focused question when a consequential decision is needed. If questions are unavailable, provide a useful draft with its unresolved inputs and decisions explicit.
+Before handing over, read the draft as its recipient. Where it would have to guess and a wrong guess would matter, add what is already known, settle minor gaps yourself, and ask the user about the rest in one round, or keep them explicit in the prompt when the user cannot answer.
 
-Finish when the task brief is usable. Check for lost intent, invented details, and unnecessary instructions; do not append a separate layer of execution advice. Leave an effective prompt alone when a change would add no value.
+The deliverable is the prompt: gather facts for it, but do not perform its task unless asked. Usually return only the usable prompt, followed by a short list of any consequential calls you made so the user can reject them. Include explanations or alternatives when requested. Check for lost intent, invented details, and unnecessary instructions; do not append a separate layer of execution advice. Leave an effective prompt alone when a change would add no value.

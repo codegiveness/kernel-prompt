@@ -1,0 +1,31 @@
+{
+  "name": "@codegiveness/kernel-prompt",
+  "version": "0.3.0",
+  "description": "Agent skill that turns rough requests and drafts into clear prompts for other agents, asking only the decisions that change the result.",
+  "license": "MIT",
+  "author": "codegiveness",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codegiveness/kernel-prompt.git"
+  },
+  "homepage": "https://github.com/codegiveness/kernel-prompt",
+  "bugs": {
+    "url": "https://github.com/codegiveness/kernel-prompt/issues"
+  },
+  "keywords": [
+    "prompt-engineering",
+    "prompt",
+    "skill",
+    "agent-skills",
+    "agent",
+    "kernel"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "files": [
+    "skills/",
+    "CHANGELOG.md"
+  ]
+}

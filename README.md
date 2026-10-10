@@ -13,11 +13,11 @@ Use kernel-prompt to improve this request:
 [your goal or draft, with relevant context and constraints]
 ```
 
-Expect a usable prompt, focused questions when a decision matters, or a draft with explicit unknowns when answers are unavailable. Ask for explanations or alternatives when wanted.
+Expect a usable prompt, a short round of questions when a decision only you can make matters, or a draft with explicit unknowns when answers are unavailable. Invoking the skill with text that reads as a task—"fix the failing login test"—yields a prompt for that task, not the fix. Questions use the harness's question tool when one exists, each led by a recommended answer. Ask for explanations or alternatives when wanted.
 
 ## The idea
 
-A kernel makes the intended outcome, relevant context, boundaries, and completion conditions clear. Add detail where it helps the task; leave unassigned execution choices open.
+A kernel makes the intended outcome, relevant context, boundaries, and completion conditions clear. Add detail where it helps the task; leave unassigned execution choices open. Facts are looked up, not asked; only decisions the user alone can make become questions. Before handing over, the draft is read as its recipient would read it—capable, without the conversation, unable to ask.
 
 **KERNEL** is a mnemonic, not a mandatory sequence or template:
 
@@ -29,6 +29,8 @@ A kernel makes the intended outcome, relevant context, boundaries, and completio
 - **L**ay out the handoff.
 
 The guiding reference is OpenAI's [Rethinking skills and prompts for GPT-6 Astra](https://developers.openai.com/blog/rethinking-skills-and-prompts-for-gpt-6-astra). Revisit accumulated instructions, avoid unnecessary recipes, and adapt guidance to the task and model. The article's model-specific advice is not a universal rule; clearer prompts do not guarantee correct answers.
+
+The questioning adapts Matt Pocock's [grilling](https://github.com/mattpocock/skills/tree/main/skills/productivity/grilling) (rounds of independent decisions with recommended answers; facts versus decisions) and the recipient check adapts the builder check in obra's [brainstorming](https://github.com/obra/superpowers/tree/main/skills/brainstorming), scaled down so a clear request gets no questions.
 
 ## Optional installation
 
@@ -42,16 +44,16 @@ Choose the harness and installation scope when prompted. Add `--copy` if symlink
 
 You can also copy `skills/kernel-prompt/` into your harness's skill location. Only `SKILL.md` is needed. The skill has no application runtime, build step, or project dependencies; the optional installer is external tooling.
 
-## Retired npm distribution
+## npm package
 
-The [npm package](https://www.npmjs.com/package/@codegiveness/kernel-prompt) is retired. Use the current [SKILL.md](skills/kernel-prompt/SKILL.md) directly or follow [Optional installation](#optional-installation); neither route requires this npm package.
+The skill is also published as [`@codegiveness/kernel-prompt`](https://www.npmjs.com/package/@codegiveness/kernel-prompt). The package contains only the skill files, with the skill at `skills/kernel-prompt/SKILL.md`; it has no CLI or runtime. Use it when you want a versioned, pinnable copy:
 
-All published versions (0.1.0, 0.1.1, 0.1.2, 0.1.3, and 0.2.0) are deprecated with a migration notice, not unpublished. They remain downloadable and installable, and existing version pins remain usable. They contain historical skill content, not the current Git revision.
+```bash
+npm install @codegiveness/kernel-prompt
+```
 
-To migrate, replace only your existing Kernel Prompt skill with `skills/kernel-prompt/SKILL.md`, preserving local edits and unrelated instructions. If you used the old npm CLI, switch to direct use or the Skills CLI instructions above; do not rely on the retired npm install/update commands for current content. Deprecation does not remove installed files or update copied instructions.
+Then copy `node_modules/@codegiveness/kernel-prompt/skills/kernel-prompt/` into your harness's skill location. Releases are staged with `npm stage publish` and go live only after a maintainer approves them with two-factor authentication.
 
-Retirement is a distribution decision, not a claim that nobody uses the package. The [npm downloads API](https://api.npmjs.org/downloads/point/2026-08-14:2026-09-12/@codegiveness%2Fkernel-prompt) reported 36 downloads for August 14–September 12, 2026. Downloads do not identify unique users or active installations, and public dependency/code searches cannot exclude direct installs or private consumers.
-
-The npm manifests and publishing workflow have been removed from this checkout. No replacement npm release is planned; historical packages and release history remain available.
+Versions 0.1.0 through 0.2.0 remain deprecated: they carry historical skill content, and 0.1.x also shipped an `install`/`update` CLI that no longer exists. Replace only your existing Kernel Prompt skill with the current `SKILL.md`, preserving local edits and unrelated instructions; deprecation does not remove installed files or update copied instructions.
 
 [MIT license](LICENSE)

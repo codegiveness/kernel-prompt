@@ -1,18 +1,20 @@
 # Kernel Prompt
 
-## Unreleased
+## [0.3.0] - 2026-10-10
 
 ### Changed
 
 - Redesign the skill as a self-contained adaptive prompt editor, with a focused trigger, lightweight KERNEL considerations, and task-specific decision and completion boundaries.
+- Add a conditional questioning method adapted from grilling and brainstorming: look facts up rather than asking, ask only decisions the user alone can make, in rounds of independent questions led by recommended answers, through the harness's question tool when available. Add a recipient check before handoff, anti-goals, non-goals, report-back expectations, and a short list of consequential calls made. Clear requests still get a prompt without questions.
 - Consolidate the README around a balanced KERNEL philosophy, the guiding article, ordinary chat use, and optional Git-based installation.
 - Replace `CLAUDE.md` and the agent-guidance link/pointer arrangement with a standalone, harness-neutral `AGENTS.md`.
-- Retire npm distribution by deprecating all five published versions (0.1.0–0.1.3 and 0.2.0) with a migration notice while preserving downloads and version tags. Document migration to direct skill use or Git-based installation and the uncertainty around external npm usage.
-
+- Deprecate npm versions 0.1.0–0.1.3 and 0.2.0 with a migration notice while preserving downloads and version tags; they carry historical skill content, and 0.1.x a removed CLI.
+- Restore npm distribution with a minimal manifest that ships only the skill files, published through npm staged publishing with two-factor approval.
 
 ### Fixed
 
 - Clarify the skill's discovery description and selection boundary: document or guidance reviews do not become prompt-design requests merely because they discuss AI instructions or ask for wording suggestions. Preserve prompt improvement, composition, design feedback, and AI handoffs.
+- Deliver a prompt, not the task's result, when the skill is invoked directly with text that reads as a task. The previous selection guidance ("follow that request directly") led models to fix code, answer questions, or write the requested content instead; facts may still be gathered to inform the prompt.
 
 ### Removed
 
@@ -21,7 +23,7 @@
 - Remove Claude Code plugin packaging, installation instructions, and plugin-specific CI and release checks.
 - Remove the separate `.out-of-scope/` checklist and its incoming documentation link.
 - Remove `docs/`, including old audit artifacts, audit guidance, and improvement history.
-- Remove npm package manifests, `node_modules/`, and the npm publishing workflow; distribute the skill through Git and Markdown files.
+- Remove `node_modules/` and the automated npm publishing workflow; npm releases are staged manually.
 - Remove `EXAMPLE.md` and `REFORMULATIONS.md`; keep one short delegation contrast inside `SKILL.md`.
 - Remove `CONTEXT.md`; keep the project explanation in the README and behavior in `SKILL.md`.
 

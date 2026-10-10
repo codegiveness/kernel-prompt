@@ -13,7 +13,7 @@ Use kernel-prompt to improve this request:
 [your goal or draft, with relevant context and constraints]
 ```
 
-Expect one round of two to five questions before any draft, each led by a recommended answer and using the harness's question tool when one exists. Say "no questions" or "just write it" to skip them. A further round comes only for decisions your answers opened. The reply is the prompt alone, as plain text ready to send, followed by at most three assumptions you did not confirm; decisions you left unsettled are delegated to the agent or marked open in the prompt, never guessed.
+Expect one round of two to five questions before any draft, each led by a recommended answer and using the harness's question tool when one exists. Say "no questions" or "just write it" to skip them. A further round comes only for decisions your answers opened. The reply is the prompt alone, inside a fenced code block ready to copy and send (a four-backtick fence when the prompt itself contains triple backticks), followed by at most three assumptions you did not confirm; decisions you left unsettled are delegated to the agent or marked open in the prompt, never guessed.
 
 Invoking the skill with text that reads as a task—"fix the failing login test"—yields a prompt for that task, not the fix. Files, skills, URLs, and repositories you mention are read as context for the prompt, not rewritten as the deliverable, unless you say that text is the prompt to improve. No files are created or edited unless you ask to save the prompt.
 
@@ -54,7 +54,7 @@ The skill is also published as [`@codegiveness/kernel-prompt`](https://www.npmjs
 npm install @codegiveness/kernel-prompt
 ```
 
-Then copy `node_modules/@codegiveness/kernel-prompt/skills/kernel-prompt/` into your harness's skill location. Releases are staged with `npm stage publish` and go live only after a maintainer approves them with two-factor authentication.
+Then copy `node_modules/@codegiveness/kernel-prompt/skills/kernel-prompt/` into your harness's skill location. Releases are staged with `npm stage publish` and go live only after a maintainer approves them with two-factor authentication; [RELEASING.md](RELEASING.md) lists the full release workflow.
 
 Versions 0.1.0 through 0.2.0 remain deprecated: they carry historical skill content, and 0.1.x also shipped an `install`/`update` CLI that no longer exists. Replace only your existing Kernel Prompt skill with the current `SKILL.md`, preserving local edits and unrelated instructions; deprecation does not remove installed files or update copied instructions.
 

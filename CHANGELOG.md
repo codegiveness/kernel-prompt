@@ -1,5 +1,14 @@
 # Kernel Prompt
 
+## [0.5.0] - 2026-10-12
+
+### Changed
+
+- Write English prompts in a plain subset of ASD-STE100 Simplified Technical English, adapted from the agent-instruction guidance of [SimpleEnglish](https://github.com/AminBlg/SimpleEnglish): one instruction per sentence, each condition before its command, "must" only for requirements the user stated or confirmed and "can" for permissions and choices left to the agent instead of "should", "may", or "might", and one term for each thing and action. A "should" that only expresses a preference becomes a default. Prompts in other languages, and the questions to the user, keep their natural style.
+- Rewrite `SKILL.md` in the same plain style: conditions before commands, one instruction per sentence, consistent terms, and no em-dashes or semicolons. The KERNEL letters, the never-do-the-task rule and its pre-reply check, the question round, the delivery format, and the example keep their meaning. The example question now asks for a decision instead of using "should".
+- Replace "grilling round" in the description with "one round of questions"; the selection boundary is unchanged.
+- Document the plain-English rules in the README and credit SimpleEnglish and ASD-STE100. ASD-STE100 is a registered trademark of ASD.
+
 ## [0.4.3] - 2026-10-10
 
 ### Changed

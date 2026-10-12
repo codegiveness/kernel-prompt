@@ -19,6 +19,8 @@ Use kernel-prompt to improve this request:
 
 Expect one round of two to five questions before any draft, each led by a recommended answer and using the harness's question tool when one exists. Say "no questions" or "just write it" to skip them. A further round comes only for decisions your answers opened. The reply is the prompt alone, inside a fenced code block ready to copy and send (a four-backtick fence when the prompt itself contains triple backticks), followed by at most three assumptions you did not confirm; decisions you left unsettled are delegated to the agent or marked open in the prompt, never guessed.
 
+English prompts are written in a plain subset of ASD-STE100 Simplified Technical English: one instruction per sentence, each condition before its command, "must" only for requirements you stated or confirmed and "can" for permissions and choices left to the agent (never "should", "may", or "might"), and one term for each thing and action. A "should" that only expresses a preference becomes a default. Prompts in other languages keep the natural style of your message, and the questions to you are not restyled.
+
 Invoking the skill with text that reads as a task—"fix the failing login test"—yields a prompt for that task, not the fix. Files, skills, URLs, and repositories you mention are read as context for the prompt, not rewritten as the deliverable, unless you say that text is the prompt to improve. No files are created or edited unless you ask to save the prompt.
 
 ## The idea
@@ -37,6 +39,8 @@ A kernel makes the intended outcome, relevant context, boundaries, and completio
 The guiding reference is OpenAI's [Rethinking skills and prompts for GPT-6 Astra](https://developers.openai.com/blog/rethinking-skills-and-prompts-for-gpt-6-astra). Revisit accumulated instructions, avoid unnecessary recipes, and adapt guidance to the task and model. The article's model-specific advice is not a universal rule; clearer prompts do not guarantee correct answers.
 
 The questioning adapts Matt Pocock's [grilling](https://github.com/mattpocock/skills/tree/main/skills/productivity/grilling) (rounds of independent decisions with recommended answers; facts versus decisions) and the recipient framing adapts the builder check in obra's [brainstorming](https://github.com/obra/superpowers/tree/main/skills/brainstorming), scaled down to one round before drafting unless you skip it.
+
+The plain-English rules adapt the agent-instruction guidance of AminBlg's [SimpleEnglish](https://github.com/AminBlg/SimpleEnglish) skill, which applies [ASD-STE100](https://www.asd-ste100.org/) Simplified Technical English to software text. Kernel Prompt keeps only the few rules that changed its prompts in testing and none of the STE dictionary, so its prompts make no STE compliance claim. The skill's own instructions follow the same rules, and its structure follows the [Agent Skills authoring guidance](https://agentskills.io/skill-creation/best-practices). ASD-STE100 is a registered trademark of ASD.
 
 ## Optional installation
 

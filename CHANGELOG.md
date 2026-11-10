@@ -1,13 +1,32 @@
 # Kernel Prompt
 
+## [0.6.0] - 2026-11-10
+
+### Changed
+
+- Save each prompt to `./.kernel-prompt/YYYY-MM-DD_HHMM_short-kebab-title.md` in the session's working directory, named with the local date and time and no colon so the name is valid on Windows, and reply with the path only. The file holds only the prompt, ready to send. Save a decision record beside it with the same name stem and the ending `.decisions.md`: the user's original request, each question with its answer, and each unconfirmed point. The reply does not name the decision record.
+- Edit a saved prompt in place when the user asks for a change in the same session: read the file first so that the user's own edits stay, change only the affected parts, keep the file name, edit the decision record too, and reply with the same path. An unrelated new request gets a new file.
+- Reply with the prompt in a fenced code block, and write no file, when the user says "don't save" or "in chat" or when the harness cannot write files. The skill creates or edits no other file and never changes a project's `.gitignore`.
+- Settle each decision that changes the prompt before writing it, from the context or from the user's answers. The request sets the number of questions and rounds: none when the context settles everything, more when the request is vague. A later round asks only the decisions that earlier answers opened. An assumption that would change the prompt becomes a question.
+- "no questions" or "just write it" still stops the questions. Open points are marked open in the prompt, and the reply lists all unconfirmed assumptions after the path.
+- Check the draft for vague words such as "better", "appropriate", "etc.", and "as needed" before delivery: each gets a concrete criterion from the context or the answers, a question to the user, or an open mark.
+- Read the local date and time for the file name from a tool or the harness instead of guessing them.
+- Update the description, the KERNEL "Resolve ambiguity" letter, and the example for the new behavior, and update the README to match.
+- Ignore `.kernel-prompt/` in this repository.
+
+### Removed
+
+- Remove the fixed round of 2 to 5 questions, the limit of 3 assumptions, the fenced code block as the default delivery, and the rule to create or edit no files unless the user asks to save the prompt.
+- Remove references to other people's repositories and listing services from `AGENTS.md`, the README, and earlier changelog entries.
+
 ## [0.5.0] - 2026-10-12
 
 ### Changed
 
-- Write English prompts in a plain subset of ASD-STE100 Simplified Technical English, adapted from the agent-instruction guidance of [SimpleEnglish](https://github.com/AminBlg/SimpleEnglish): one instruction per sentence, each condition before its command, "must" only for requirements the user stated or confirmed and "can" for permissions and choices left to the agent instead of "should", "may", or "might", and one term for each thing and action. A "should" that only expresses a preference becomes a default. Prompts in other languages, and the questions to the user, keep their natural style.
+- Write English prompts in a plain subset of ASD-STE100 Simplified Technical English: one instruction per sentence, each condition before its command, "must" only for requirements the user stated or confirmed and "can" for permissions and choices left to the agent instead of "should", "may", or "might", and one term for each thing and action. A "should" that only expresses a preference becomes a default. Prompts in other languages, and the questions to the user, keep their natural style.
 - Rewrite `SKILL.md` in the same plain style: conditions before commands, one instruction per sentence, consistent terms, and no em-dashes or semicolons. The KERNEL letters, the never-do-the-task rule and its pre-reply check, the question round, the delivery format, and the example keep their meaning. The example question now asks for a decision instead of using "should".
 - Replace "grilling round" in the description with "one round of questions"; the selection boundary is unchanged.
-- Document the plain-English rules in the README and credit SimpleEnglish and ASD-STE100. ASD-STE100 is a registered trademark of ASD.
+- Document the plain-English rules in the README and credit ASD-STE100. ASD-STE100 is a registered trademark of ASD.
 
 ## [0.4.3] - 2026-10-10
 
@@ -49,7 +68,7 @@
 ### Changed
 
 - Redesign the skill as a self-contained adaptive prompt editor, with a focused trigger, lightweight KERNEL considerations, and task-specific decision and completion boundaries.
-- Add a conditional questioning method adapted from grilling and brainstorming: look facts up rather than asking, ask only decisions the user alone can make, in rounds of independent questions led by recommended answers, through the harness's question tool when available. Add a recipient check before handoff, anti-goals, non-goals, report-back expectations, and a short list of consequential calls made. Clear requests still get a prompt without questions.
+- Add a conditional questioning method: look facts up rather than asking, ask only decisions the user alone can make, in rounds of independent questions led by recommended answers, through the harness's question tool when available. Add a recipient check before handoff, anti-goals, non-goals, report-back expectations, and a short list of consequential calls made. Clear requests still get a prompt without questions.
 - Consolidate the README around a balanced KERNEL philosophy, the guiding article, ordinary chat use, and optional Git-based installation.
 - Replace `CLAUDE.md` and the agent-guidance link/pointer arrangement with a standalone, harness-neutral `AGENTS.md`.
 - Deprecate npm versions 0.1.0–0.1.3 and 0.2.0 with a migration notice while preserving downloads and version tags; they carry historical skill content, and 0.1.x a removed CLI.
@@ -83,7 +102,7 @@
 - Check whether an existing prompt needs repair before rewriting it. Keep clear clauses unchanged, scope delegated choices, distinguish outcome checks from extra activity reports, and avoid repeated template payloads unless repetition is required by the task or format.
 - Check surrounding task context before returning a draft unchanged. Carry supplied facts, input locations, access, and approval into the handoff while keeping refiner-only directions separate. Fill delegated choices with concise values instead of developing unassigned creative or implementation details.
 - Add an LLM-consumer-only audit agreement and durable improvement history, with saved instruction snapshots, model outputs, and unresolved consumer difficulties. Keep historical scores separate from accuracy claims and installer verification.
-- Flatten the canonical skill directory to `skills/kernel-prompt/`, matching the single-skill layout of `codegiveness/shared-understanding`. Make `npx skills@latest add codegiveness/kernel-prompt` the primary installation route; preserve the skill's prose unchanged by this migration.
+- Flatten the canonical skill directory to `skills/kernel-prompt/`. Make `npx skills@latest add codegiveness/kernel-prompt` the primary installation route; preserve the skill's prose unchanged by this migration.
 - Remove the custom npm install/update command, development helper scripts, and obsolete installer tests. Update package metadata, plugin paths, CI, release checks, and current documentation for the flat layout and Skills CLI installation.
 - Retire JavaScript CodeQL analysis after removing the last executable source; verify real Skills CLI installation in CI instead.
 
@@ -96,13 +115,13 @@
 
 ### Fixed
 
-- Restore skills.sh badge (removed in 0.1.2). Badge shows "resource not found" until skills.sh telemetry from `npx skills add` installs populates the listing — this is expected, not a broken badge. Per [skills.sh docs](https://skills.sh/docs): "The skills leaderboard ranks skills based on anonymous telemetry data collected from the skills CLI."
+- README badge change.
 
 ## [0.1.2] - 2026-07-26
 
 ### Fixed
 
-- Remove broken skills.sh badge from README (repo not registered on skills.sh — badge rendered "resource not found"). Will re-add when listing is live.
+- README badge change.
 
 ## [0.1.1] - 2026-07-26
 
